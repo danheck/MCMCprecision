@@ -22,7 +22,9 @@
 #' @details The mathod draws independent posterior samples of the transition matrix P for the discrete-valued indicator variable Z (which indexes the model). For each row of the transition matrix, a Dirichlet(0,...,0) prior is assumed, resulting in a conjugate Dirichlet posterior. For each sample, the eigenvector with eigenvalue 1 is computed and normalized to sum up to one. The resulting samples can be used to assess the estimation uncertainty in the true stationary distribution of interest (e.g., the model posterior probabilities).
 #' @return posterior samples for the model posterior probabilities (i.e., the fixed but unknown stationary distribution of \code{z}). If \code{summary=TRUE}, a \code{\link{summary.stationary}} is returned.
 #' @examples
-#' P <- LaplacesDemon::rdirichlet(3, c(2,1,.5))
+#' P <- matrix(c(.9,.1,0,
+#'               .1,.6,.3,
+#'               .2,.3,.5), 3, byrow=TRUE)
 #' z <- sim.mc(1000, P)
 #' stationary(z)
 #' @export

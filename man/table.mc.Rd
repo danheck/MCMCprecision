@@ -18,7 +18,9 @@ a square matrix with transition frequencies
 Summarizes a sequence of discrete values by the observed transition frequencies.
 }
 \examples{
-P <- LaplacesDemon::rdirichlet(3, c(2,1,.5))
+P <- matrix(c(.9,.1,0,
+              .1,.6,.3,
+              .2,.3,.5), 3, byrow=TRUE)
 z <- sim.mc(1000, P)
 table.mc(z, labels=1:5)
 }

@@ -4,12 +4,14 @@
 \alias{summary.stationary}
 \title{Summarize posterior probabilities and BF estimates}
 \usage{
-\method{summary}{stationary}(samples, logBF = FALSE)
+\method{summary}{stationary}(object, logBF = FALSE, ...)
 }
 \arguments{
-\item{samples}{posterior samples of the stationary distribution (rows = replications; columns = model probabilities)}
+\item{object}{posterior samples of the stationary distribution (rows = replications; columns = model probabilities)}
 
 \item{logBF}{whether to summarize log Bayes factors instead of Bayes factors}
+
+\item{...}{ignored}
 }
 \value{
 a list with estimates for \code{"pp"} = model posterior probabilities, \code{"bf"} = Bayes factors, \code{"neff"} = effective sample size
@@ -18,8 +20,8 @@ a list with estimates for \code{"pp"} = model posterior probabilities, \code{"bf
 Summarize posterior probabilities and BF estimates
 }
 \examples{
-n <- 100
-pp <- LaplacesDemon::rdirichlet(200, n*c(.7,.2,.1))
+pp <- matrix(runif(100*3),100)
+pp <- pp/rowSums(pp)
 class(pp) <- "stationary"
 summary(pp)
 }

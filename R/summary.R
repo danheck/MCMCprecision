@@ -1,16 +1,19 @@
 
 #' Summarize posterior probabilities and BF estimates
-#' @param samples posterior samples of the stationary distribution (rows = replications; columns = model probabilities)
+#' @param object posterior samples of the stationary distribution (rows = replications; columns = model probabilities)
 #' @param logBF whether to summarize log Bayes factors instead of Bayes factors
+#' @param ... ignored
 #' @examples
-#' n <- 100
-#' pp <- LaplacesDemon::rdirichlet(200, n*c(.7,.2,.1))
+#' pp <- matrix(runif(100*3),100)
+#' pp <- pp/rowSums(pp)
 #' class(pp) <- "stationary"
 #' summary(pp)
 #' @return a list with estimates for \code{"pp"} = model posterior probabilities, \code{"bf"} = Bayes factors, \code{"neff"} = effective sample size
 #' @export
-summary.stationary <- function(samples,
-                               logBF=FALSE){
+summary.stationary <- function(object,
+                               logBF=FALSE,
+                               ...){
+  samples <- object
   pp <- t(apply(samples, 2, summ.samples))
   combs <- combn(ncol(samples),2)
 

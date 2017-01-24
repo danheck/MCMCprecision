@@ -5,6 +5,8 @@
 # #' @param tab matrix of transition frequencies
 # #' @param M number of models
 # #' @export
+# @importFrom LaplacesDemon rdirichlet
+#' @importFrom stats rgamma
 posterior.sample <- function(i, tab, method = "sparse"){
   M <- ncol(tab)
 

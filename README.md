@@ -6,7 +6,7 @@ To install `MCMCprec` from GitHub, paste the following code to R (dependencies n
 
 ```
 ### Dependencies:
-# install.packages(c("LaplacesDemon", "sirt","devtools"))
+# install.packages(c("combinat", "sirt","devtools"))
 
 library(devtools)
 install_github("danheck/MCMCprec")
@@ -14,4 +14,4 @@ install_github("danheck/MCMCprec")
 
 ## Reference
 
-* Heck, D. W. (2017). Estimating the Precision of Transdimensional Markov Chain Monte Carlo Methods.
+* Heck, D. W., Gronau, Q., Overstall, A. M., & Wagenmakers, E.-J. (2017). Estimating the Precision of Transdimensional Markov Chain Monte Carlo Methods.

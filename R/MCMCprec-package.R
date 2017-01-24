@@ -6,14 +6,15 @@
 #' @author Daniel W. Heck
 #' @docType package
 #' @importFrom sirt dirichlet.mle
-#' @importFrom LaplacesDemon rdirichlet
-#' @importFrom parallel clusterExport makeCluster parSapply clusterEvalQ clusterExport
+# @importFrom LaplacesDemon rdirichlet
+#' @importFrom parallel clusterExport makeCluster parSapply clusterEvalQ clusterExport stopCluster
 # @importFrom rARPACK eigs
 #' @importFrom Matrix Matrix
+#' @importFrom stats sd quantile rgamma
+#' @importFrom combinat combn
 #' @useDynLib MCMCprec
 #' @references
-#' Heck, D. W. (2017).
-# , Gronau, Q., Overstall, A. M., & Wagenmakers, E.-J.
+#' Heck, D. W., Gronau, Q., Overstall, A. M., & Wagenmakers, E.-J. (2017).
 #' Estimating the Precision of Transdimensional Markov Chain Monte Carlo Methods.
 #'
 "_PACKAGE"
