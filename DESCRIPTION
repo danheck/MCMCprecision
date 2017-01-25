@@ -11,13 +11,15 @@ Description: Estimates the precision of the estimated posterior model
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
-Depends:
+Depends: R (>= 3.0.0)
+Imports:
     stats,
     Matrix,
     parallel,
     combinat,
     sirt
-Imports:
-    Rcpp (>= 0.12.8),RcppArmadillo, RcppProgress
-LinkingTo: Rcpp, RcppArmadillo, RcppProgress
+LinkingTo: 
+    Rcpp, 
+    RcppArmadillo, 
+    RcppProgress
 RoxygenNote: 5.0.1

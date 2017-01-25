@@ -6,9 +6,7 @@
 #' @author Daniel W. Heck
 #' @docType package
 #' @importFrom sirt dirichlet.mle
-# @importFrom LaplacesDemon rdirichlet
 #' @importFrom parallel clusterExport makeCluster parSapply clusterEvalQ clusterExport stopCluster
-# @importFrom rARPACK eigs
 #' @importFrom Matrix Matrix
 #' @importFrom stats sd quantile rgamma na.omit
 #' @importFrom combinat combn
