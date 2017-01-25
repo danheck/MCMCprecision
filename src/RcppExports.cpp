@@ -31,26 +31,30 @@ BEGIN_RCPP
 END_RCPP
 }
 // stationaryCpp
-arma::mat stationaryCpp(arma::mat freq, int iter);
-RcppExport SEXP MCMCprec_stationaryCpp(SEXP freqSEXP, SEXP iterSEXP) {
+arma::mat stationaryCpp(arma::mat freq, int sample, int cpu, bool display_progress);
+RcppExport SEXP MCMCprec_stationaryCpp(SEXP freqSEXP, SEXP sampleSEXP, SEXP cpuSEXP, SEXP display_progressSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat >::type freq(freqSEXP);
-    Rcpp::traits::input_parameter< int >::type iter(iterSEXP);
-    rcpp_result_gen = Rcpp::wrap(stationaryCpp(freq, iter));
+    Rcpp::traits::input_parameter< int >::type sample(sampleSEXP);
+    Rcpp::traits::input_parameter< int >::type cpu(cpuSEXP);
+    Rcpp::traits::input_parameter< bool >::type display_progress(display_progressSEXP);
+    rcpp_result_gen = Rcpp::wrap(stationaryCpp(freq, sample, cpu, display_progress));
     return rcpp_result_gen;
 END_RCPP
 }
 // stationaryCppSparse
-arma::mat stationaryCppSparse(arma::sp_mat freq, int iter);
-RcppExport SEXP MCMCprec_stationaryCppSparse(SEXP freqSEXP, SEXP iterSEXP) {
+arma::mat stationaryCppSparse(arma::sp_mat freq, int sample, int cpu, bool display_progress);
+RcppExport SEXP MCMCprec_stationaryCppSparse(SEXP freqSEXP, SEXP sampleSEXP, SEXP cpuSEXP, SEXP display_progressSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::sp_mat >::type freq(freqSEXP);
-    Rcpp::traits::input_parameter< int >::type iter(iterSEXP);
-    rcpp_result_gen = Rcpp::wrap(stationaryCppSparse(freq, iter));
+    Rcpp::traits::input_parameter< int >::type sample(sampleSEXP);
+    Rcpp::traits::input_parameter< int >::type cpu(cpuSEXP);
+    Rcpp::traits::input_parameter< bool >::type display_progress(display_progressSEXP);
+    rcpp_result_gen = Rcpp::wrap(stationaryCppSparse(freq, sample, cpu, display_progress));
     return rcpp_result_gen;
 END_RCPP
 }

@@ -1,12 +1,15 @@
 rdirichlet <- function (n, a){
+
+  # parameters in columns:
   a <- rbind(a)
   M <- ncol(a)
 
-  if (n > dim(a)[1])
+  # for a single set of parameters, extend to matrix
+  if (n > nrow(a))
     a <- matrix(a, n, M, byrow = TRUE)
 
-  x <- matrix(rgamma(M * n, a), ncol = M)
-  sums <- x %*% rep(1, M)
+  x <- matrix(rgamma(M*n, a), nrow=n, ncol=M)
 
-  x/as.vector(sums)
+  # normalize to sum up to one:
+  x/rowSums(x)
 }

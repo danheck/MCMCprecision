@@ -4,34 +4,34 @@
 \alias{stationary}
 \title{Estimate stationary distribution of discrete MCMC output}
 \usage{
-stationary(z, labels = NULL, add.diag = 0, sample = 1000,
-  method = "cpp", cpu = 1, summary = FALSE, logBF = FALSE)
+stationary(z, labels = NULL, sample = 1000, cpu = 4, method = "cpp",
+  progress = FALSE, summary = TRUE, logBF = FALSE)
 }
 \arguments{
 \item{z}{MCMC output for the discrete indicator variable (can be a \code{\link[coda]{mcmc.list}} and include numerical or character labels)}
 
 \item{labels}{a-prior vector of labels for all models to include models not sampled in chain \code{z}. This does not affect inferences due to the improper Dirichlet(0,..,0) prior.}
 
-\item{add.diag}{constant added to the diagonal to ensure that the observed transition matrix is not singular. The special value \code{add.diag="1/M"} adds 1/M with M=number of models.}
-
 \item{sample}{number of samples}
+
+\item{cpu}{number of CPUs used. Will only speed up computations for large numbers of models.}
 
 \item{method}{how to compute eigenvectors:
 \itemize{
   \item \code{"cpp"}: This default uses \code{RcppArmadillo::eig_gen} and provides a compromise of speed and stability.
-  \item \code{"cpps"}: Uses sparse matrices in \code{RcppArmadillo::eigs_gen} and can be faster (but also more unstable) for large number of models.
-  \item \code{"base"}: Uses \code{base::\link[base]{eigen}}, which is slower but most stable.
+  \item \code{"cpps"}: Uses sparse matrices in \code{RcppArmadillo::eigs_gen} and can be faster for large number of models (but also more unstable).
+  \item \code{"base"}: Uses \code{base::\link[base]{eigen}}, which is slower but might be more stable.
   \item \code{"iid"}: Assume independent sampling of model indicator variable and is only implemented as a benchmark. Results cannot be trusted if the samples \code{z} are correlated (which is usually the case of transdimensional MCMC output)
  }}
 
-\item{cpu}{number of CPUs used. Will only speed up computations for large numbers of models.}
+\item{progress}{whether to show the progress (not for \code{cpu>4} and \code{method="base"})}
 
 \item{summary}{whether to summarize results and get effective sample size (otherwise, the raw samples are r' @parameturned)}
 
 \item{logBF}{whether to summarize log(BF) instead of BF}
 }
 \value{
-posterior samples for the model posterior probabilities (i.e., the fixed but unknown stationary distribution of \code{z}). If \code{summary=TRUE}, a \code{\link{summary.stationary}} is returned.
+By default, a summary for the posterior distribution of the model posterior probabilities (i.e., the fixed but unknown stationary distribution of \code{z}) and Bayes factors is returned. Use \code{summary=FALSE} to get the raw samples.
 }
 \description{
 Transdimensional MCMC methods include a discrete model-indicator variable \eqn{Z} with a fixed but unknown stationary distribution \eqn{\pi} (i.e., the model posterior probabiltiies). This function provides posterior samples quantiying the estimation uncertainty of \eqn{\pi}.

@@ -18,6 +18,6 @@ Depends:
     combinat,
     sirt
 Imports:
-    Rcpp (>= 0.12.8)
-LinkingTo: Rcpp, RcppArmadillo
+    Rcpp (>= 0.12.8),RcppArmadillo, RcppProgress
+LinkingTo: Rcpp, RcppArmadillo, RcppProgress
 RoxygenNote: 5.0.1

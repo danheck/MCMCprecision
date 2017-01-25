@@ -1,4 +1,3 @@
-
 #' Summarize posterior probabilities and BF estimates
 #' @param object posterior samples of the stationary distribution (rows = replications; columns = model probabilities)
 #' @param logBF whether to summarize log Bayes factors instead of Bayes factors
@@ -38,7 +37,7 @@ summary.stationary <- function(object,
     bf[bb,] <- summ.samples(bf.tmp)
   }
   neff <- NA
-  try(neff <- floor(dirichlet.mle(samples)$alpha0)) # sirt
+  try(neff <- floor(dirichlet.mle(na.omit(samples))$alpha0)) # sirt
   list(pp=pp, bf=bf, neff=neff)
 }
 

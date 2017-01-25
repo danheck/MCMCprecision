@@ -9,11 +9,11 @@ rdirichletPt <- function(Pt) {
     .Call('MCMCprec_rdirichletPt', PACKAGE = 'MCMCprec', Pt)
 }
 
-stationaryCpp <- function(freq, iter = 10000L) {
-    .Call('MCMCprec_stationaryCpp', PACKAGE = 'MCMCprec', freq, iter)
+stationaryCpp <- function(freq, sample = 5000L, cpu = 4L, display_progress = TRUE) {
+    .Call('MCMCprec_stationaryCpp', PACKAGE = 'MCMCprec', freq, sample, cpu, display_progress)
 }
 
-stationaryCppSparse <- function(freq, iter = 10000L) {
-    .Call('MCMCprec_stationaryCppSparse', PACKAGE = 'MCMCprec', freq, iter)
+stationaryCppSparse <- function(freq, sample = 5000L, cpu = 4L, display_progress = TRUE) {
+    .Call('MCMCprec_stationaryCppSparse', PACKAGE = 'MCMCprec', freq, sample, cpu, display_progress)
 }
 

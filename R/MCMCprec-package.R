@@ -10,7 +10,7 @@
 #' @importFrom parallel clusterExport makeCluster parSapply clusterEvalQ clusterExport stopCluster
 # @importFrom rARPACK eigs
 #' @importFrom Matrix Matrix
-#' @importFrom stats sd quantile rgamma
+#' @importFrom stats sd quantile rgamma na.omit
 #' @importFrom combinat combn
 #' @useDynLib MCMCprec
 #' @references

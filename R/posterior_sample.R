@@ -1,4 +1,3 @@
-
 # #' Get a sample from the posterior for the stationary distribution
 # #'
 # #' @param i ignored (just to use parSapply below)
