@@ -14,7 +14,7 @@
 sim.mc <- function(n, P, start=rep(1, ncol(P))){
 
   if(!is.matrix(P) || ncol(P) != nrow(P) ||
-     any(P<0) || any(rowSums(P) != 1) || ncol(P) <= 2)
+     any(P<0) || any(round(rowSums(P),5) != 1) || ncol(P) <= 2)
       stop("'P' must be a transition matrix with positive values and rows summing to one.")
   if(!is.numeric(n) || n != round(n) || n <= 1 || length(n) != 1)
     stop("'n' must be a positive integer")

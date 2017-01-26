@@ -12,7 +12,7 @@ MCMCprec estimates the precision of the posterior model probabilities in transdi
 Daniel W. Heck
 }
 \references{
-Heck, D. W., Gronau, Q., Overstall, A. M., & Wagenmakers, E.-J. (2017).
+Heck, D. W., Gronau, Q. F., Overstall, A. M., & Wagenmakers, E.-J. (2017).
 Estimating the Precision of Transdimensional Markov Chain Monte Carlo Methods.
 }
 
