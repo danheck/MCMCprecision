@@ -19,42 +19,31 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rdirichletPt
-arma::sp_mat rdirichletPt(arma::sp_mat Pt);
-RcppExport SEXP MCMCprec_rdirichletPt(SEXP PtSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::sp_mat >::type Pt(PtSEXP);
-    rcpp_result_gen = Rcpp::wrap(rdirichletPt(Pt));
-    return rcpp_result_gen;
-END_RCPP
-}
 // stationaryCpp
-arma::mat stationaryCpp(arma::mat freq, int sample, int cpu, bool display_progress);
-RcppExport SEXP MCMCprec_stationaryCpp(SEXP freqSEXP, SEXP sampleSEXP, SEXP cpuSEXP, SEXP display_progressSEXP) {
+arma::mat stationaryCpp(arma::mat freq, int sample, bool display_progress, int digits);
+RcppExport SEXP MCMCprec_stationaryCpp(SEXP freqSEXP, SEXP sampleSEXP, SEXP display_progressSEXP, SEXP digitsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat >::type freq(freqSEXP);
     Rcpp::traits::input_parameter< int >::type sample(sampleSEXP);
-    Rcpp::traits::input_parameter< int >::type cpu(cpuSEXP);
     Rcpp::traits::input_parameter< bool >::type display_progress(display_progressSEXP);
-    rcpp_result_gen = Rcpp::wrap(stationaryCpp(freq, sample, cpu, display_progress));
+    Rcpp::traits::input_parameter< int >::type digits(digitsSEXP);
+    rcpp_result_gen = Rcpp::wrap(stationaryCpp(freq, sample, display_progress, digits));
     return rcpp_result_gen;
 END_RCPP
 }
 // stationaryCppSparse
-arma::mat stationaryCppSparse(arma::sp_mat freq, int sample, int cpu, bool display_progress);
-RcppExport SEXP MCMCprec_stationaryCppSparse(SEXP freqSEXP, SEXP sampleSEXP, SEXP cpuSEXP, SEXP display_progressSEXP) {
+arma::mat stationaryCppSparse(arma::sp_mat freq, int sample, bool display_progress, int digits);
+RcppExport SEXP MCMCprec_stationaryCppSparse(SEXP freqSEXP, SEXP sampleSEXP, SEXP display_progressSEXP, SEXP digitsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::sp_mat >::type freq(freqSEXP);
     Rcpp::traits::input_parameter< int >::type sample(sampleSEXP);
-    Rcpp::traits::input_parameter< int >::type cpu(cpuSEXP);
     Rcpp::traits::input_parameter< bool >::type display_progress(display_progressSEXP);
-    rcpp_result_gen = Rcpp::wrap(stationaryCppSparse(freq, sample, cpu, display_progress));
+    Rcpp::traits::input_parameter< int >::type digits(digitsSEXP);
+    rcpp_result_gen = Rcpp::wrap(stationaryCppSparse(freq, sample, display_progress, digits));
     return rcpp_result_gen;
 END_RCPP
 }

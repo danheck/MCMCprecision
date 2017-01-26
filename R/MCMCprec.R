@@ -6,10 +6,11 @@
 #' @author Daniel W. Heck
 #' @docType package
 #' @importFrom sirt dirichlet.mle
-#' @importFrom parallel clusterExport makeCluster parSapply clusterEvalQ clusterExport stopCluster
+#  ' @importFrom parallel clusterExport makeCluster parSapply clusterEvalQ clusterExport stopCluster
 #' @importFrom Matrix Matrix
 #' @importFrom stats sd quantile rgamma na.omit
 #' @importFrom combinat combn
+#' @importFrom utils txtProgressBar setTxtProgressBar
 #' @useDynLib MCMCprec
 #' @references
 #' Heck, D. W., Gronau, Q. F., Overstall, A. M., & Wagenmakers, E.-J. (2017).

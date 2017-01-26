@@ -2,13 +2,13 @@
 #'
 #' Transdimensional MCMC methods include a discrete model-indicator variable \eqn{Z} with a fixed but unknown stationary distribution \eqn{\pi} (i.e., the model posterior probabiltiies). This function provides posterior samples quantiying the estimation uncertainty of \eqn{\pi}.
 #'
-#' @param z MCMC output for the discrete indicator variable (can be a \code{\link[coda]{mcmc.list}} and include numerical or character labels)
+#' @param z MCMC output for the discrete indicator variable with numerical, character, or factor labels (can be a \code{\link[coda]{mcmc.list}} or a matrix with one chain per column). If \code{z} is a quadratic matrix, it will be interpreted as the observed transition matrix.
 #' @param labels a-prior vector of labels for all models to include models not sampled in chain \code{z}. This does not affect inferences due to the improper Dirichlet(0,..,0) prior.
 # DEPRECATED: @param add.diag constant added to the diagonal to ensure that the observed transition matrix is not singular. The special value \code{add.diag="1/M"} adds 1/M with M=number of models.
 #' @param sample number of samples
 #' @param summary whether to summarize results and get effective sample size (otherwise, the raw samples are r' @parameturned)
 #' @param logBF whether to summarize log(BF) instead of BF
-#' @param cpu number of CPUs used. Will only speed up computations for large numbers of models.
+# @param cpu number of CPUs used. Will only speed up computations for large numbers of models.
 #' @param progress whether to show the progress (not for \code{cpu>4} and \code{method="base"})
 #' @param method how to compute eigenvectors:
 #' \itemize{
@@ -31,47 +31,49 @@
 stationary <- function(z,
                        labels=NULL,
                        sample=1000,
-                       cpu=4,
+                       # cpu=4,
                        method ="cpp",
-                       progress=FALSE,
+                       progress=TRUE,
                        summary=TRUE,
                        logBF=FALSE){
-  tab <- table.mc(z, labels=labels)
+  if(is.matrix(z) && ncol(z) == nrow(z)){
+    if(any(z<0) || any(z != round(z)))
+      stop("The transition matrix 'z' has negative or non-integer values.")
+    tab <- z
+  }
+  else{
+    tab <- table.mc(z, labels=labels)
+  }
   labels <- rownames(tab)
   M <- nrow(tab)
-  ### DEPRECATED:
-  # if(det(tab) == 0 & add.diag != 0){
-  #   if(add.diag == "1/M") add.diag <- 1/M
-  #   diag(tab) <- diag(tab) + add.diag
-  #   warning("Matrix 'tab' is singular! add.diag=", round(add.diag, 5),
-  #           " is added to the diagonal.")
-  # }
 
   if(method == "cpp"){
     samp <- stationaryCpp(tab, sample = sample,
-                          cpu = cpu, display_progress=progress)
+                          display_progress=progress)
   }else if(method == "cpps"){
     samp <- stationaryCppSparse(Matrix(tab, sparse = TRUE), sample = sample,
-                                cpu = cpu, display_progress=progress)
+                                display_progress=progress)
   }else if(method == "iid"){
     samp <- rdirichlet(sample, rowSums(tab))
-  }else if(cpu == 1){
-    samp <- t(sapply(1:sample, posterior.sample,
-                     tab=tab, method=method))
+  }else if(method == "base"){
+    samp <- matrix(NA, sample, M)
+    if(progress)
+      prog <- txtProgressBar(0, sample, style=3, width=50)
+    for(i in 1:sample){
+      if(progress) setTxtProgressBar(prog, i)
+      samp[i,] <- posterior.sample(1, tab=tab, method=method)
+    }
+    if(progress) close(prog)
   }else{
-    cl <- makeCluster(cpu)
-    tmp <- clusterEvalQ(cl, {library(Matrix)}) #; library(rARPACK)})
-    clusterExport(cl, c("posterior.sample"),
-                  envir = environment())
-    samp <- t(parSapply(cl, 1:sample, posterior.sample,
-                        tab=tab, method=method))
-    stopCluster(cl)
+    stop("method not supported.")
+    # cl <- makeCluster(cpu)
+    # tmp <- clusterEvalQ(cl, {library(Matrix)}) #; library(rARPACK)})
+    # clusterExport(cl, c("posterior.sample"),
+    #               envir = environment())
+    # samp <- t(parSapply(cl, 1:sample, posterior.sample,
+    #                     tab=tab, method=method))
+    # stopCluster(cl)
   }
-  ### DEPRECATED:  rerun NA samples with base::eigen
-  # sel <- apply(is.na(samp) | samp == Inf, 1, any)
-  # if(sum(sel) > 0)
-  #   samp[sel,] <-  t(sapply(1:sum(sel), posterior.sample,
-  #                           tab=tab, method="base"))
 
   colnames(samp) <- colnames(tab)
   if(summary){

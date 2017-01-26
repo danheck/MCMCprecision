@@ -1,5 +1,4 @@
 MCMCprec 0.2.0
 ===========
 
-* Implementations with RcppArmadillo and base::eigen
-* Support for parallelization in C++ (OMP) and progress bars (RcppProgress)
+* Implementations with RcppArmadillo::eig_gen and base::eigen

@@ -4,17 +4,15 @@
 \alias{stationary}
 \title{Estimate stationary distribution of discrete MCMC output}
 \usage{
-stationary(z, labels = NULL, sample = 1000, cpu = 4, method = "cpp",
-  progress = FALSE, summary = TRUE, logBF = FALSE)
+stationary(z, labels = NULL, sample = 1000, method = "cpp",
+  progress = TRUE, summary = TRUE, logBF = FALSE)
 }
 \arguments{
-\item{z}{MCMC output for the discrete indicator variable (can be a \code{\link[coda]{mcmc.list}} and include numerical or character labels)}
+\item{z}{MCMC output for the discrete indicator variable with numerical, character, or factor labels (can be a \code{\link[coda]{mcmc.list}} or a matrix with one chain per column). If \code{z} is a quadratic matrix, it will be interpreted as the observed transition matrix.}
 
 \item{labels}{a-prior vector of labels for all models to include models not sampled in chain \code{z}. This does not affect inferences due to the improper Dirichlet(0,..,0) prior.}
 
 \item{sample}{number of samples}
-
-\item{cpu}{number of CPUs used. Will only speed up computations for large numbers of models.}
 
 \item{method}{how to compute eigenvectors:
 \itemize{

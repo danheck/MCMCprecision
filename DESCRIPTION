@@ -1,7 +1,7 @@
 Package: MCMCprec
 Type: Package
 Title: Precision for discrete parameters in transdimensional MCMC
-Version: 0.1.1
+Version: 0.2.0
 Authors@R: c(person("Daniel W.","Heck", email="heck@uni-mannheim.de",role=c("aut","cre")))
 Author: Daniel W. Heck [aut, cre]
 Maintainer: Daniel W. Heck <heck@uni-mannheim.de>
@@ -14,8 +14,8 @@ LazyData: true
 Depends: R (>= 3.0.0)
 Imports:
     stats,
+    utils,
     Matrix,
-    parallel,
     combinat,
     sirt
 LinkingTo: 
