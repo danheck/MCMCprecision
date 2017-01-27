@@ -5,11 +5,11 @@ sim_mc <- function(n, P, start) {
     .Call('MCMCprec_sim_mc', PACKAGE = 'MCMCprec', n, P, start)
 }
 
-stationaryCpp <- function(freq, sample = 5000L, display_progress = TRUE, digits = 1e8L) {
-    .Call('MCMCprec_stationaryCpp', PACKAGE = 'MCMCprec', freq, sample, display_progress, digits)
+stationaryCpp <- function(N, epsilon = 0, sample = 5000L, display_progress = TRUE, digits = 1e8L) {
+    .Call('MCMCprec_stationaryCpp', PACKAGE = 'MCMCprec', N, epsilon, sample, display_progress, digits)
 }
 
-stationaryCppSparse <- function(freq, sample = 5000L, display_progress = TRUE, digits = 1e8L) {
-    .Call('MCMCprec_stationaryCppSparse', PACKAGE = 'MCMCprec', freq, sample, display_progress, digits)
+stationaryCppSparse <- function(N, sample = 5000L, display_progress = TRUE, digits = 1e8L) {
+    .Call('MCMCprec_stationaryCppSparse', PACKAGE = 'MCMCprec', N, sample, display_progress, digits)
 }
 

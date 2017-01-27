@@ -46,19 +46,20 @@ arma::mat rdirichletPt(arma::mat Pt)
 
 
 // Posterior distribution for stationary distribution
-// freq: matrix with transition frequencies
+// N: matrix with transition frequencies
 // a: prior vector for transition probabilities - Dirichlet(a[1],...,a[M])
 // sample: number of (independent) posterior samples
 // [[Rcpp::export]]
-arma::mat stationaryCpp(arma::mat freq,
+arma::mat stationaryCpp(arma::mat N,
+                        double epsilon = 0,
                         int sample = 5000,
                         bool display_progress=true,
                         int digits = 1e8)
 {
-  int M = freq.n_cols;
+  int M = N.n_cols;
   int steps = round(1000/M);
   arma::mat samp(sample, M);
-  arma::mat freqt = freq.t();
+  arma::mat freqt = N.t() + epsilon;
   Progress p(sample, display_progress);
 
   bool run = true;
@@ -95,18 +96,18 @@ arma::mat stationaryCpp(arma::mat freq,
 
 
 // Posterior distribution for stationary distribution
-// freq: matrix with transition frequencies
+// N: matrix with transition frequencies
 // a: prior for transition probabilities - Dirichlet(a,...,a)
 // sample: number of (independent) posterior samples
 // [[Rcpp::export]]
-arma::mat stationaryCppSparse(arma::sp_mat freq,
+arma::mat stationaryCppSparse(arma::sp_mat N,
                               int sample = 5000,
                               bool display_progress=true,
                               int digits = 1e8)
 {
-  int M = freq.n_cols;
+  int M = N.n_cols;
   arma::mat samp(sample, M);
-  arma::sp_mat freqt = freq.t();
+  arma::sp_mat freqt = N.t();
 
   int steps = round(1000/M);
   Progress p(sample, display_progress);
@@ -128,7 +129,7 @@ arma::mat stationaryCppSparse(arma::sp_mat freq,
       {
         arma::cx_vec eigval(M);
         arma::cx_mat eigvec(M,1);
-        arma::eigs_gen(eigval, eigvec, Pt, 1, "lr");
+        arma::eigs_gen(eigval, eigvec, Pt, 1, "lm");
         if( round( real(eigval(0))*digits) == digits)
         {
           arma::vec ev = real(eigvec);

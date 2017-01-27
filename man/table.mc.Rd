@@ -4,7 +4,7 @@
 \alias{table.mc}
 \title{Get matrix of observed transition frequencies}
 \usage{
-table.mc(z, labels = NULL)
+table.mc(z, labels)
 }
 \arguments{
 \item{z}{vector of model indices (numerical or character)}

@@ -15,11 +15,11 @@
 #' table.mc(z, labels=1:5)
 #' @export
 table.mc <- function(z,
-                        labels=NULL){
+                     labels){
   if(class(z) %in% c("list", "mcmc.list")){
     z <- do.call("cbind",z)
   }
-  if(is.null(labels))
+  if(missing(labels) || is.null(labels))
     labels <- sort(unique(as.vector(z)))
 
   if (is.matrix(z)){

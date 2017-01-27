@@ -1,16 +1,16 @@
 # #' Get a sample from the posterior for the stationary distribution
 # #'
-# #' @param i ignored (just to use parSapply below)
+# #' @param i ignored (just to use parSapply)
 # #' @param tab matrix of transition frequencies
 # #' @param M number of models
 # #' @export
 # @importFrom LaplacesDemon rdirichlet
 #' @importFrom stats rgamma
-posterior.sample <- function(i, tab, method = "sparse"){
+posterior.sample <- function(i, tab, epsilon=0, method = "base"){
   M <- ncol(tab)
 
   # 1.) sample from conjugate posterior with prior: Dirichlet(0,..,0)
-  P <- aa <- matrix(rgamma(M^2, tab, 1),
+  P <- aa <- matrix(rgamma(M^2, tab + epsilon, 1),
                     nrow = M, ncol = M)
   sel <- rowSums(aa) > 0
   P[sel,] <- aa[sel,,drop=FALSE]/rowSums(aa[sel,,drop=FALSE])

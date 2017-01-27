@@ -4,22 +4,26 @@
 \alias{stationary}
 \title{Estimate stationary distribution of discrete MCMC output}
 \usage{
-stationary(z, labels = NULL, sample = 1000, method = "cpp",
+stationary(z, N, labels, sample = 1000, epsilon = 0, method = "cpp",
   progress = TRUE, summary = TRUE, logBF = FALSE)
 }
 \arguments{
-\item{z}{MCMC output for the discrete indicator variable with numerical, character, or factor labels (can be a \code{\link[coda]{mcmc.list}} or a matrix with one chain per column). If \code{z} is a quadratic matrix, it will be interpreted as the observed transition matrix.}
+\item{z}{MCMC output for the discrete indicator variable with numerical, character, or factor labels (can be a \code{\link[coda]{mcmc.list}} or a matrix with one chain per column).}
 
-\item{labels}{a-prior vector of labels for all models to include models not sampled in chain \code{z}. This does not affect inferences due to the improper Dirichlet(0,..,0) prior.}
+\item{N}{the observed transition matrix (if used, \code{z} is ignored). A quadratic matrix with switching frequencies \eqn{N[i,j] = #{ z[t]=i & z[t+1]=j }}}
 
-\item{sample}{number of samples}
+\item{labels}{optional: vector of labels for all models to be included (e.g., models not sampled in chain \code{z}). If \code{epsilon=0}, this does not affect inferences due to the improper Dirichlet(0,..,0) prior.}
+
+\item{sample}{number of samples from the posterior of the stationary distribution \eqn{\pi}}
+
+\item{epsilon}{prior parameter for the rows of the estimated transition matrix P, that is, P[i,] ~ Dirichlet\eqn{(\epsilon, ..., \epsilon)}. The default minimizes the impact of the prior and results in neglecting models that where never observed in the sequence \code{z}. If \code{method="iid"}, the Dirichlet prior is assumed directly on the stationary distribution \eqn{\pi}.}
 
 \item{method}{how to compute eigenvectors:
 \itemize{
-  \item \code{"cpp"}: This default uses \code{RcppArmadillo::eig_gen} and provides a compromise of speed and stability.
-  \item \code{"cpps"}: Uses sparse matrices in \code{RcppArmadillo::eigs_gen} and can be faster for large number of models (but also more unstable).
-  \item \code{"base"}: Uses \code{base::\link[base]{eigen}}, which is slower but might be more stable.
-  \item \code{"iid"}: Assume independent sampling of model indicator variable and is only implemented as a benchmark. Results cannot be trusted if the samples \code{z} are correlated (which is usually the case of transdimensional MCMC output)
+  \item \code{"cpp"}: This default uses \code{RcppArmadillo::eig_gen} and provides a good compromise of speed and stability.
+  \item \code{"cpps"}: Uses sparse matrices in \code{RcppArmadillo::eigs_gen} and can be faster (but also unstable) for very large number of models (> 1000).
+  \item \code{"base"}: Uses \code{base::\link[base]{eigen}}, which is slower but might be most stable.
+  \item \code{"iid"}: Assume independent sampling of model indicator variable \code{z}. This is only implemented as a benchmark. Results cannot be trusted if the samples \code{z} are correlated (which is usually the case of transdimensional MCMC output)
  }}
 
 \item{progress}{whether to show the progress (not for \code{cpu>4} and \code{method="base"})}
@@ -35,7 +39,7 @@ By default, a summary for the posterior distribution of the model posterior prob
 Transdimensional MCMC methods include a discrete model-indicator variable \eqn{Z} with a fixed but unknown stationary distribution \eqn{\pi} (i.e., the model posterior probabiltiies). This function provides posterior samples quantiying the estimation uncertainty of \eqn{\pi}.
 }
 \details{
-The mathod draws independent posterior samples of the transition matrix P for the discrete-valued indicator variable Z (which indexes the model). For each row of the transition matrix, a Dirichlet(0,...,0) prior is assumed, resulting in a conjugate Dirichlet posterior. For each sample, the eigenvector with eigenvalue 1 is computed and normalized to sum up to one. The resulting samples can be used to assess the estimation uncertainty in the true stationary distribution of interest (e.g., the model posterior probabilities).
+The method draws independent posterior samples of the transition matrix P for the discrete-valued indicator variable \code{z} (which indexes the model). For each row of the transition matrix, a Dirichlet(0,...,0) prior is assumed, resulting in a conjugate Dirichlet posterior. For each sample, the eigenvector with eigenvalue 1 is computed and normalized to sum up to one. The resulting samples can be used to assess the estimation uncertainty in the true stationary distribution of interest (e.g., the model posterior probabilities).
 }
 \examples{
 P <- matrix(c(.9,.1,0,
@@ -43,5 +47,9 @@ P <- matrix(c(.9,.1,0,
               .2,.3,.5), 3, byrow=TRUE)
 z <- sim.mc(1000, P)
 stationary(z)
+
+# input: transition frequency
+tab <- table.mc(z)
+stationary(N = tab)
 }
 
