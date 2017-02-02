@@ -4,7 +4,7 @@ The R package `MCMCprec` estimates the precision of the posterior model probabil
 
 To install `MCMCprec` from GitHub, paste the following code to R (dependencies need to be installed manually):
 
-```
+```r
 ### Dependencies:
 # install.packages(c("combinat", "sirt","devtools","RcppProgress","RcppArmadillo"))
 
