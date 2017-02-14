@@ -25,4 +25,6 @@ pp <- pp/rowSums(pp)
 class(pp) <- "stationary"
 summary(pp)
 }
-
+\seealso{
+\code{\link{stationary}}
+}

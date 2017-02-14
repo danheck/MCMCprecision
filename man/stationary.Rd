@@ -4,8 +4,8 @@
 \alias{stationary}
 \title{Estimate stationary distribution of discrete MCMC output}
 \usage{
-stationary(z, N, labels, sample = 1000, epsilon = 0, method = "cpp",
-  progress = TRUE, summary = TRUE, logBF = FALSE)
+stationary(z, N, labels, sample = 1000, epsilon = 0, cpu = 1,
+  method = "cpp", progress = TRUE, summary = TRUE, logBF = FALSE)
 }
 \arguments{
 \item{z}{MCMC output for the discrete indicator variable with numerical, character, or factor labels (can be a \code{\link[coda]{mcmc.list}} or a matrix with one chain per column).}
@@ -17,6 +17,8 @@ stationary(z, N, labels, sample = 1000, epsilon = 0, method = "cpp",
 \item{sample}{number of samples from the posterior of the stationary distribution \eqn{\pi}}
 
 \item{epsilon}{prior parameter for the rows of the estimated transition matrix P, that is, P[i,] ~ Dirichlet\eqn{(\epsilon, ..., \epsilon)}. The default minimizes the impact of the prior and results in neglecting models that where never observed in the sequence \code{z}. If \code{method="iid"}, the Dirichlet prior is assumed directly on the stationary distribution \eqn{\pi}.}
+
+\item{cpu}{number of CPUs used for parallel computation. Will only speed up computations for large numbers of models.}
 
 \item{method}{how to compute eigenvectors:
 \itemize{
@@ -52,4 +54,6 @@ stationary(z)
 tab <- table.mc(z)
 stationary(N = tab)
 }
-
+\seealso{
+\code{\link{best.k}}, \code{\link{summary.stationary}}
+}

@@ -22,4 +22,3 @@ P <- matrix(c(.3,.5,.2,
               0,.1,.9), 3, 3, byrow=TRUE)
 sim.mc(50, P)
 }
-

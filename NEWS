@@ -1,3 +1,9 @@
+MCMCprec 0.2.1
+===========
+
+* New function best.k() to assess estimation uncertainty for the k models with the highest posterior model probabilities
+
+
 MCMCprec 0.2.0
 ===========
 

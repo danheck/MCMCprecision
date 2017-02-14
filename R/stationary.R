@@ -10,7 +10,7 @@
 #' @param epsilon prior parameter for the rows of the estimated transition matrix P, that is, P[i,] ~ Dirichlet\eqn{(\epsilon, ..., \epsilon)}. The default minimizes the impact of the prior and results in neglecting models that where never observed in the sequence \code{z}. If \code{method="iid"}, the Dirichlet prior is assumed directly on the stationary distribution \eqn{\pi}.
 #' @param summary whether to summarize results and get effective sample size (otherwise, the raw samples are r' @parameturned)
 #' @param logBF whether to summarize log(BF) instead of BF
-# @param cpu number of CPUs used. Will only speed up computations for large numbers of models.
+#' @param cpu number of CPUs used for parallel computation. Will only speed up computations for large numbers of models.
 #' @param progress whether to show the progress (not for \code{cpu>4} and \code{method="base"})
 #' @param method how to compute eigenvectors:
 #' \itemize{
@@ -23,6 +23,8 @@
 #'
 #' @details The method draws independent posterior samples of the transition matrix P for the discrete-valued indicator variable \code{z} (which indexes the model). For each row of the transition matrix, a Dirichlet(0,...,0) prior is assumed, resulting in a conjugate Dirichlet posterior. For each sample, the eigenvector with eigenvalue 1 is computed and normalized to sum up to one. The resulting samples can be used to assess the estimation uncertainty in the true stationary distribution of interest (e.g., the model posterior probabilities).
 #' @return By default, a summary for the posterior distribution of the model posterior probabilities (i.e., the fixed but unknown stationary distribution of \code{z}) and Bayes factors is returned. Use \code{summary=FALSE} to get the raw samples.
+#' @seealso \code{\link{best.k}}, \code{\link{summary.stationary}}
+#'
 #' @examples
 #' P <- matrix(c(.9,.1,0,
 #'               .1,.6,.3,
@@ -39,7 +41,7 @@ stationary <- function(z,
                        labels,
                        sample=1000,
                        epsilon = 0,
-                       # cpu=4,
+                       cpu=1,
                        method ="cpp",
                        progress=TRUE,
                        summary=TRUE,
@@ -58,35 +60,60 @@ stationary <- function(z,
   }
   labels <- rownames(tab)
   M <- nrow(tab)
-
-  if(method == "cpp"){
-    samp <- stationaryCpp(tab, sample = sample, epsilon = epsilon,
-                          display_progress=progress)
-  }else if(method == "cpps"){
-    if(epsilon != 0)
-      warning("'epsilon is ignored if method='cpps' (sparse matrices) is used.")
-    samp <- stationaryCppSparse(Matrix(tab, sparse = TRUE), sample = sample,
-                                display_progress=progress)
-  }else if(method == "iid"){
-    samp <- rdirichlet(sample, rowSums(tab) + epsilon)
-  }else if(method == "base"){
-    samp <- matrix(NA, sample, M)
-    if(progress)
-      prog <- txtProgressBar(0, sample, style=3, width=50)
-    for(i in 1:sample){
-      if(progress) setTxtProgressBar(prog, i)
-      samp[i,] <- posterior.sample(1, tab=tab, epsilon=epsilon, method=method)
+  if (cpu == 1){
+    if (method == "cpp"){
+      samp <- stationaryCpp(tab, sample = sample, epsilon = epsilon,
+                            display_progress=progress)
+    } else if(method == "cpps"){
+      if(epsilon != 0)
+        warning("'epsilon is ignored if method='cpps' (sparse matrices) is used.")
+      samp <- stationaryCppSparse(Matrix(tab, sparse = TRUE), sample = sample,
+                                  display_progress=progress)
+    } else if (method == "iid"){
+      samp <- rdirichlet(sample, rowSums(tab) + epsilon)
+    } else if (method == "base"){
+      samp <- matrix(NA, sample, M)
+      if (progress)
+        prog <- txtProgressBar(0, sample, style=3, width=50)
+      for (i in 1:sample){
+        if(progress) setTxtProgressBar(prog, i)
+        samp[i,] <- posterior.sample(1, tab=tab, epsilon=epsilon, method=method)
+      }
+      if (progress) close(prog)
+    } else {
+      stop ("method not supported.")
     }
-    if(progress) close(prog)
-  }else{
-    stop("method not supported.")
-    # cl <- makeCluster(cpu)
-    # tmp <- clusterEvalQ(cl, {library(Matrix)}) #; library(rARPACK)})
-    # clusterExport(cl, c("posterior.sample"),
-    #               envir = environment())
-    # samp <- t(parSapply(cl, 1:sample, posterior.sample,
-    #                     tab=tab, method=method))
-    # stopCluster(cl)
+
+  } else {
+    ################################ MULTICORE SUPPORT
+    cl <- makeCluster(cpu)
+    if (method == "cpp"){
+      samp <- do.call("rbind",
+                      parSapply(cl, rep(ceiling(sample/cpu), cpu),
+                                function (ss) stationaryCpp(tab, sample = ss,
+                                                            epsilon = epsilon,
+                                                            display_progress=FALSE),
+                                simplify = FALSE))
+    } else if (method == "cpps"){
+      if (epsilon != 0)
+        warning ("'epsilon is ignored if method='cpps' (sparse matrices) is used.")
+      samp <- do.call("rbind",
+                      parSapply(cl, rep(ceiling(sample/cpu), cpu),
+                                function (ss) stationaryCppSparse(Matrix(tab, sparse = TRUE),
+                                                                  sample = ss,
+                                                                  display_progress=FALSE),
+                                simplify = FALSE))
+    }else if(method == "iid"){
+      samp <-  do.call("rbind", parSapply(cl, rep(ceiling(sample/cpu), cpu),
+                                          rdirichlet, rowSums(tab) + epsilon,
+                                          simplify = FALSE))
+    }else if(method == "base"){
+      samp <- t(parSapply(cl, 1:sample, posterior.sample,
+                          tab=tab, method=method))
+    }else{
+      stop("method not supported.")
+    }
+    stopCluster(cl)
   }
 
   colnames(samp) <- colnames(tab)

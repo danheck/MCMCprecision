@@ -8,6 +8,7 @@
 #' class(pp) <- "stationary"
 #' summary(pp)
 #' @return a list with estimates for \code{"pp"} = model posterior probabilities, \code{"bf"} = Bayes factors, \code{"neff"} = effective sample size
+#' @seealso \code{\link{stationary}}
 #' @export
 summary.stationary <- function(object,
                                logBF=FALSE,

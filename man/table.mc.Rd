@@ -24,4 +24,3 @@ P <- matrix(c(.9,.1,0,
 z <- sim.mc(1000, P)
 table.mc(z, labels=1:5)
 }
-
