@@ -53,7 +53,7 @@ best.k <- function (samples,
                 in.best)
   colnames(summ)[8] <- paste0("Rank<=",k)
 
-  results <- list("best.k" = summ,
-                  "rank.best.k.stable" = sum(rank.stable)/R)
-  return (results)
+  # results <- list("best.k" = summ,
+  #                 "rank.best.k.stable" = sum(rank.stable)/R)
+  return (summ)
 }
