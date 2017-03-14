@@ -59,6 +59,7 @@ arma::mat stationaryCpp(arma::mat N,
   int M = N.n_cols;
   int steps = round(1000/M);
   arma::mat samp(sample, M);
+  samp.fill(arma::datum::nan);
   arma::mat freqt = N.t() + epsilon;
   Progress p(sample, display_progress);
 
@@ -77,17 +78,24 @@ arma::mat stationaryCpp(arma::mat N,
       //     (normalized left eigenvector for eigenvalue = 1)
       try
       {
-        arma::cx_vec eigval(M);
-        arma::cx_mat eigvec(M,M);
+        arma::cx_vec eigval;
+        arma::cx_mat eigvec;
         arma::eig_gen(eigval, eigvec, Pt);
-        arma::uvec idx = find(round(eigval*digits) == digits);
-        arma::vec eigenvec1 = real(eigvec.cols(idx));
-        samp.row(i) = (eigenvec1 / arma::accu(eigenvec1)).t();
+
+        if( round( real(eigval(0))*digits) == digits)
+        {
+          arma::vec ev = real(eigvec.col(0));
+          samp.row(i) = (ev / accu(ev)).t();
+        }
+        // arma::uvec idx = find(round(eigval*digits) == digits);
+        // arma::uvec idx = 0;
+        // arma::vec ev = real(eigvec.cols(idx));
+        // samp.row(i) = (ev / arma::accu(ev)).t();
       }
       catch(...)
       {
-        samp.row(i).fill(arma::datum::nan);
-        Rcout << "# RcppArmadillo::eig_gen unstable; method='base' might be more stable #";
+        Rcout << "# RcppArmadillo::eigs_gen unstable: \n#" <<
+                 "method='base' or changing the argument N.min > 1 might provide more stable results#";
       }
     }
   }
@@ -107,6 +115,7 @@ arma::mat stationaryCppSparse(arma::sp_mat N,
 {
   int M = N.n_cols;
   arma::mat samp(sample, M);
+  samp.fill(arma::datum::nan);
   arma::sp_mat freqt = N.t();
 
   int steps = round(1000/M);
@@ -127,23 +136,19 @@ arma::mat stationaryCppSparse(arma::sp_mat N,
       //     (normalized left eigenvector for eigenvalue = 1)
       try
       {
-        arma::cx_vec eigval(M);
-        arma::cx_mat eigvec(M,1);
+        arma::cx_vec eigval;
+        arma::cx_mat eigvec;
         arma::eigs_gen(eigval, eigvec, Pt, 1, "lm");
         if( round( real(eigval(0))*digits) == digits)
         {
-          arma::vec ev = real(eigvec);
+          arma::vec ev = real(eigvec.col(0));
           samp.row(i) = (ev / accu(ev)).t();
-        }
-        else
-        {
-          samp.row(i).fill(arma::datum::nan);
         }
       }
       catch(...)
       {
-        samp.row(i).fill(arma::datum::nan);
-        Rcout << "# RcppArmadillo::eig_gen unstable; method='base'/'cpp' might be more stable #";
+        Rcout << "# RcppArmadillo::eigs_gen unstable: \n#" <<
+                 "method='base' or changing the argument N.min > 1 might provide more stable results#";
       }
     }
   }

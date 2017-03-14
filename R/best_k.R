@@ -2,9 +2,11 @@
 #' Precision for the k Best-Performing Models
 #'
 #' Assesses the precision in estimating the ranking of the \eqn{k} best-performing models.
+#'
 #' @param samples a matrix with posterior samples (one per row) for the model posterior probabilities (one model per column). Can be estimated using \code{\link{stationary}} with the argument \code{summary = FALSE}.
 #' @param k number of best-performing models to be considered
 #' @param ties.method a character string specifying how ties are treated, see \code{\link[base]{rank}}
+#'
 #' @examples
 #' # a sequence of uncorrelated model indices
 #' mult <- rmultinom(1000, 1, c(.05, .6, .15, .12, .08))
@@ -13,10 +15,12 @@
 #' stat <- stationary(z, summary = FALSE)
 #' best.k(stat, 3)
 #' @export
-best.k <- function(samples, k, ties.method = "random"){
+best.k <- function (samples,
+                    k,
+                    ties.method = "min"){
 
   if (k > ncol(samples)){
-    warning("'k' is larger then the number of models (i.e., the number of columns of 'samples').")
+    warning ("'k' is larger then the number of models (i.e., the number of columns of 'samples').")
     k <- ncol(samples)
   }
   R <- nrow(samples)
@@ -51,5 +55,5 @@ best.k <- function(samples, k, ties.method = "random"){
 
   results <- list("best.k" = summ,
                   "rank.best.k.stable" = sum(rank.stable)/R)
-  return(results)
+  return (results)
 }

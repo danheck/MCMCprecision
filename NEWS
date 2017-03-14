@@ -1,3 +1,12 @@
+MCMCprec 0.3.0
+===========
+
+* Improved estimation of Dirichlet parameters to get effective sample size (C++ version of fixed-point algorithm by Mink, 2000)
+* New function best.k() to get summary for the k models with highest posterior model probability
+* Exports function rdirichlet()
+* Updated licence: GPL-3 (instead of GPL-2)
+
+
 MCMCprec 0.2.1
 ===========
 

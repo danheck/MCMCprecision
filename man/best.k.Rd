@@ -4,7 +4,7 @@
 \alias{best.k}
 \title{Precision for the k Best-Performing Models}
 \usage{
-best.k(samples, k, ties.method = "random")
+best.k(samples, k, ties.method = "min")
 }
 \arguments{
 \item{samples}{a matrix with posterior samples (one per row) for the model posterior probabilities (one model per column). Can be estimated using \code{\link{stationary}} with the argument \code{summary = FALSE}.}

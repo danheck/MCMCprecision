@@ -4,9 +4,11 @@
 # #' @param tab matrix of transition frequencies
 # #' @param M number of models
 # #' @export
-# @importFrom LaplacesDemon rdirichlet
-#' @importFrom stats rgamma
-posterior.sample <- function(i, tab, epsilon=0, method = "base"){
+posterior.sample <- function (i,
+                              tab,
+                              epsilon = 0,
+                              method = "base",
+                              digits = 8){
   M <- ncol(tab)
 
   # 1.) sample from conjugate posterior with prior: Dirichlet(0,..,0)
@@ -15,17 +17,17 @@ posterior.sample <- function(i, tab, epsilon=0, method = "base"){
   sel <- rowSums(aa) > 0
   P[sel,] <- aa[sel,,drop=FALSE]/rowSums(aa[sel,,drop=FALSE])
   # 2.) get estimate for stationary distribution (largest eigenvalue = 1)
-  if(method == "base"){
+  if (method == "base"){
     decomp <- eigen(t(P))
   # }else if (method == "sparse"){
   #   decomp <- eigs(Matrix(t(P), sparse=TRUE), k = 1, which = "LR") ## rARPACK
-  }else{
-    stop("Method not supported.")
+  } else {
+    stop ("Method not supported.")
   }
-  if(round(decomp$values[1],8) != 1){
-    return( rep(NA, M) )
-  }else{
+  if (round(decomp$values[1],digits) != 1){
+    return (rep(NA, M))
+  } else {
     ev <- Re(decomp$vectors[,1])
-    return( ev/sum(ev) )
+    return (ev/sum(ev))
   }
 }

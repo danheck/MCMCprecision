@@ -2,28 +2,31 @@
 % Please edit documentation in R/summary.R
 \name{summary.stationary}
 \alias{summary.stationary}
-\title{Summarize posterior probabilities and BF estimates}
+\title{Summary for Posterior Model Probabilities}
 \usage{
-\method{summary}{stationary}(object, logBF = FALSE, ...)
+\method{summary}{stationary}(object, BF = FALSE, logBF = FALSE, ...)
 }
 \arguments{
 \item{object}{posterior samples of the stationary distribution (rows = replications; columns = model probabilities)}
+
+\item{BF}{whether to compute summaries for all pairwise Bayes factors}
 
 \item{logBF}{whether to summarize log Bayes factors instead of Bayes factors}
 
 \item{...}{ignored}
 }
 \value{
-a list with estimates for \code{"pp"} = model posterior probabilities, \code{"bf"} = Bayes factors, \code{"neff"} = effective sample size
+a list with estimates for \code{"pp"} = model posterior probabilities, \code{"n.eff"} = effective sample size, and \code{"bf"} = pairwise Bayes factors (optional)
 }
 \description{
-Summarize posterior probabilities and BF estimates
+Summary for the estiamted posterior model probabilities (\code{\link{stationary}}), estimated effective sample size, and summaries for all pairwise Bayes factors.
 }
 \examples{
 pp <- matrix(runif(100*3),100)
 pp <- pp/rowSums(pp)
 class(pp) <- "stationary"
 summary(pp)
+
 }
 \seealso{
 \code{\link{stationary}}

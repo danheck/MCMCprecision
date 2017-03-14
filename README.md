@@ -6,7 +6,7 @@ To install `MCMCprec` from GitHub, paste the following code to R (dependencies n
 
 ```r
 ### Dependencies:
-# install.packages(c("combinat", "sirt","devtools","RcppProgress","RcppArmadillo"))
+# install.packages(c("combinat", "devtools","RcppProgress","RcppArmadillo"))
 
 library(devtools)
 install_github("danheck/MCMCprec")
