@@ -2,6 +2,7 @@
 // Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #include <RcppArmadillo.h>
+#include <RcppEigen.h>
 #include <Rcpp.h>
 
 using namespace Rcpp;
@@ -71,6 +72,21 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< bool >::type display_progress(display_progressSEXP);
     Rcpp::traits::input_parameter< int >::type digits(digitsSEXP);
     rcpp_result_gen = Rcpp::wrap(stationaryCppSparse(N, sample, display_progress, digits));
+    return rcpp_result_gen;
+END_RCPP
+}
+// stationaryEigen
+Eigen::MatrixXd stationaryEigen(Eigen::MatrixXd N, double epsilon, int sample, bool display_progress, int digits);
+RcppExport SEXP MCMCprec_stationaryEigen(SEXP NSEXP, SEXP epsilonSEXP, SEXP sampleSEXP, SEXP display_progressSEXP, SEXP digitsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::MatrixXd >::type N(NSEXP);
+    Rcpp::traits::input_parameter< double >::type epsilon(epsilonSEXP);
+    Rcpp::traits::input_parameter< int >::type sample(sampleSEXP);
+    Rcpp::traits::input_parameter< bool >::type display_progress(display_progressSEXP);
+    Rcpp::traits::input_parameter< int >::type digits(digitsSEXP);
+    rcpp_result_gen = Rcpp::wrap(stationaryEigen(N, epsilon, sample, display_progress, digits));
     return rcpp_result_gen;
 END_RCPP
 }

@@ -11,7 +11,7 @@
 #'               .1,.6,.3,
 #'               .2,.3,.5), 3, byrow=TRUE)
 #' z <- sim.mc(1000, P)
-#' table.mc(z, labels=1:5)
+#' table.mc(z, labels = 1:5)
 #' @export
 table.mc <- function (z,
                       labels){

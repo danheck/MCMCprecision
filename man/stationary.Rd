@@ -24,9 +24,10 @@ stationary(z, N, labels, sample = 1000, N.min = 1, epsilon = 0, cpu = 1,
 
 \item{method}{function used to compute eigenvectors:
 \itemize{
-  \item \code{"base"}: Uses \code{base::\link[base]{eigen}}, which is most stable, but can be slower than \code{"cpp"}
-  \item \code{"cpp"}: Uses \code{RcppArmadillo::eig_gen}
-  \item \code{"cpps"}: Uses sparse matrices and \code{RcppArmadillo::eigs_gen}, which can be faster for very large number of models (but also numerically unstable)
+  \item \code{"base"}: Uses \code{base::\link[base]{eigen}}, which is most stable, but can be slower than \code{"arma"}
+  \item \code{"arma"}: Uses \code{RcppArmadillo::eig_gen}
+  \item \code{"armas"}: Uses sparse matrices and \code{RcppArmadillo::eigs_gen}, which can be faster for very large number of models (but also numerically unstable)
+  \item \code{"eigen"}: Uses package\code{RcppEigen}
   \item \code{"iid"}: Assume i.i.d. sampling of the model indicator variable \code{z}. This is only implemented as a benchmark, because results cannot be trusted if the samples \code{z} are correlated (which is usually the case for transdimensional MCMC output)
  }}
 

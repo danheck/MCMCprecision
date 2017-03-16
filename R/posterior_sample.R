@@ -7,7 +7,7 @@
 posterior.sample <- function (i,
                               tab,
                               epsilon = 0,
-                              method = "base",
+                              # method = "base",
                               digits = 8){
   M <- ncol(tab)
 
@@ -17,13 +17,13 @@ posterior.sample <- function (i,
   sel <- rowSums(aa) > 0
   P[sel,] <- aa[sel,,drop=FALSE]/rowSums(aa[sel,,drop=FALSE])
   # 2.) get estimate for stationary distribution (largest eigenvalue = 1)
-  if (method == "base"){
-    decomp <- eigen(t(P))
-  # }else if (method == "sparse"){
-  #   decomp <- eigs(Matrix(t(P), sparse=TRUE), k = 1, which = "LR") ## rARPACK
-  } else {
-    stop ("Method not supported.")
-  }
+  # if (method == "base"){
+  decomp <- eigen(t(P))
+  # # }else if (method == "sparse"){
+  # #   decomp <- eigs(Matrix(t(P), sparse=TRUE), k = 1, which = "LR") ## rARPACK
+  # } else {
+  #   stop ("Method not supported.")
+  # }
   if (round(decomp$values[1],digits) != 1){
     return (rep(NA, M))
   } else {

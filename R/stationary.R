@@ -16,9 +16,10 @@
 #'
 #' @param method function used to compute eigenvectors:
 #' \itemize{
-#'   \item \code{"base"}: Uses \code{base::\link[base]{eigen}}, which is most stable, but can be slower than \code{"cpp"}
-#'   \item \code{"cpp"}: Uses \code{RcppArmadillo::eig_gen}
-#'   \item \code{"cpps"}: Uses sparse matrices and \code{RcppArmadillo::eigs_gen}, which can be faster for very large number of models (but also numerically unstable)
+#'   \item \code{"base"}: Uses \code{base::\link[base]{eigen}}, which is most stable, but can be slower than \code{"arma"}
+#'   \item \code{"arma"}: Uses \code{RcppArmadillo::eig_gen}
+#'   \item \code{"armas"}: Uses sparse matrices and \code{RcppArmadillo::eigs_gen}, which can be faster for very large number of models (but also numerically unstable)
+#'   \item \code{"eigen"}: Uses package\code{RcppEigen}
 #'   \item \code{"iid"}: Assume i.i.d. sampling of the model indicator variable \code{z}. This is only implemented as a benchmark, because results cannot be trusted if the samples \code{z} are correlated (which is usually the case for transdimensional MCMC output)
 #'  }
 #' @param digits number of digits that are used for checking whether the first eigenvalue is equal to 1 (any difference must be due to numerical precision)
@@ -72,13 +73,13 @@ stationary <- function (z,
 
   labels <- rownames(tab)
   if (cpu == 1){
-    if (method == "cpp"){
+    if (method == "arma"){
       samp <- stationaryCpp(tab, sample = sample, epsilon = epsilon,
                             digits = digits, display_progress=progress)
 
-    } else if (method == "cpps") {
+    } else if (method == "armas") {
       if (epsilon != 0)
-        warning ("'epsilon is ignored if method='cpps' (sparse matrices) is used.")
+        warning ("'epsilon is ignored if method='armas' (sparse matrices) is used.")
       samp <- stationaryCppSparse(Matrix(tab, sparse = TRUE), sample = sample,
                                   digits = digits, display_progress=progress)
 
@@ -92,9 +93,14 @@ stationary <- function (z,
       for (i in 1:sample){
         if (progress) setTxtProgressBar(prog, i)
         samp[i,] <- posterior.sample(1, tab=tab, epsilon=epsilon,
-                                     method=method, digits = digits)
+                                     digits = digits)
       }
       if (progress) close(prog)
+
+    } else if (method == "eigen") {
+      samp <- stationaryEigen(tab, sample = sample, epsilon = epsilon,
+                            digits = digits, display_progress=progress)
+      samp[samp == -99] <- NA
 
     } else {
       stop ("method not supported.")
@@ -103,15 +109,15 @@ stationary <- function (z,
   } else {
     ################################ MULTICORE SUPPORT
     cl <- makeCluster(cpu)
-    if (method == "cpp"){
+    if (method == "arma"){
       samp <- do.call("rbind",
                       parSapply(cl, X = rep(ceiling(sample/cpu), cpu), simplify = FALSE,
                                 FUN = function (ss)
                                   stationaryCpp(tab, sample = ss, epsilon = epsilon,
                                                 digits = digits, display_progress = FALSE)))
-    } else if (method == "cpps"){
+    } else if (method == "armas"){
       if (epsilon != 0)
-        warning ("'epsilon is ignored if method='cpps' (sparse matrices) is used.")
+        warning ("'epsilon is ignored if method='armas' (sparse matrices) is used.")
       samp <- do.call("rbind",
                       parSapply(cl, X = rep(ceiling(sample/cpu), cpu), simplify = FALSE,
                                 FUN = function (ss)
@@ -123,7 +129,7 @@ stationary <- function (z,
                                           simplify = FALSE))
     } else if (method == "base"){
       samp <- t(parSapply(cl, 1:sample, posterior.sample,
-                          tab=tab, method=method, digits = digits))
+                          tab=tab, digits = digits))
     } else {
       stop ("method not supported.")
     }

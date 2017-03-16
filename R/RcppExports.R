@@ -21,3 +21,7 @@ stationaryCppSparse <- function(N, sample = 5000L, display_progress = TRUE, digi
     .Call('MCMCprec_stationaryCppSparse', PACKAGE = 'MCMCprec', N, sample, display_progress, digits)
 }
 
+stationaryEigen <- function(N, epsilon = 0, sample = 5000L, display_progress = TRUE, digits = 1e8L) {
+    .Call('MCMCprec_stationaryEigen', PACKAGE = 'MCMCprec', N, epsilon, sample, display_progress, digits)
+}
+
