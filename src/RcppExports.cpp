@@ -19,17 +19,16 @@ BEGIN_RCPP
 END_RCPP
 }
 // dirichlet_fp
-NumericVector dirichlet_fp(NumericVector alpha, NumericVector logx_mean, double min, int maxit, double abstol);
-RcppExport SEXP MCMCprec_dirichlet_fp(SEXP alphaSEXP, SEXP logx_meanSEXP, SEXP minSEXP, SEXP maxitSEXP, SEXP abstolSEXP) {
+NumericVector dirichlet_fp(NumericVector alpha, NumericVector logx_mean, int maxit, double abstol);
+RcppExport SEXP MCMCprec_dirichlet_fp(SEXP alphaSEXP, SEXP logx_meanSEXP, SEXP maxitSEXP, SEXP abstolSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type alpha(alphaSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type logx_mean(logx_meanSEXP);
-    Rcpp::traits::input_parameter< double >::type min(minSEXP);
     Rcpp::traits::input_parameter< int >::type maxit(maxitSEXP);
     Rcpp::traits::input_parameter< double >::type abstol(abstolSEXP);
-    rcpp_result_gen = Rcpp::wrap(dirichlet_fp(alpha, logx_mean, min, maxit, abstol));
+    rcpp_result_gen = Rcpp::wrap(dirichlet_fp(alpha, logx_mean, maxit, abstol));
     return rcpp_result_gen;
 END_RCPP
 }

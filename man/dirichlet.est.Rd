@@ -4,7 +4,7 @@
 \alias{dirichlet.est}
 \title{Estimate Parameters of Dirichlet Distribution}
 \usage{
-dirichlet.est(x, const = min(x) * 0.01, maxit = 1000, abstol = 1e-04)
+dirichlet.est(x, const, maxit = 1000, abstol = 1e-04)
 }
 \arguments{
 \item{x}{a matrix of Dirichlet samples, one row per observation}

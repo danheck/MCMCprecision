@@ -5,8 +5,8 @@ inv_digamma <- function(y, iter = 5L) {
     .Call('MCMCprec_inv_digamma', PACKAGE = 'MCMCprec', y, iter)
 }
 
-dirichlet_fp <- function(alpha, logx_mean, min = 1e-12, maxit = 3000L, abstol = 1e-5) {
-    .Call('MCMCprec_dirichlet_fp', PACKAGE = 'MCMCprec', alpha, logx_mean, min, maxit, abstol)
+dirichlet_fp <- function(alpha, logx_mean, maxit = 3000L, abstol = 1e-5) {
+    .Call('MCMCprec_dirichlet_fp', PACKAGE = 'MCMCprec', alpha, logx_mean, maxit, abstol)
 }
 
 sim_mc <- function(n, P, start) {

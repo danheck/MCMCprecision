@@ -25,7 +25,6 @@ NumericVector inv_digamma(NumericVector y,
 // [[Rcpp::export]]
 NumericVector dirichlet_fp(NumericVector alpha,
                            NumericVector logx_mean,
-                           double min = 1e-12,
                            int maxit = 3000,
                            double abstol = 1e-5)
 {

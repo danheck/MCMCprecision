@@ -14,36 +14,35 @@
 #' Minka, T. (2000). Estimating a Dirichlet distribution. Technical Report.
 #' @export
 dirichlet.est <- function (x,
-                           const = min(x)*.01,
+                           const,
                            maxit = 1000,
                            abstol = 1e-4)
 {
   # adjust for x=0  (because of log(x) = -Inf)
-  x <- (x + const)/(1 + 2 * const)
+  if (min(x) == 0){
+    if (missing(const))
+      const <- min(x[x>0])*.01
+    x <- (x + const)/(1 + 2 * const)
+  }
   x <- x/rowSums(x)
-
-  # start values:
-  x.mean <- colMeans(x)
-  xlog.mean <- colMeans(log(x))
-  x.squares <- colMeans(x^2)
-  xi <- (x.mean - x.squares)/(x.squares - x.mean^2)
-  alpha <- xi * x.mean
-
-  x <- (x + const)/(1 + 2 * const)
-  x <- x/rowSums(x)
-
-  # start values:
-  x.mean <- colMeans(x)
-  x.squares <- colMeans(x^2)
-  xi <- (x.mean - x.squares)/(x.squares - x.mean^2)
-  alpha <- xi * x.mean
-
   logx.mean <- colMeans(log(x))
   N <- nrow(x)
-  cnt <- diff <- 1
-  min.x <- min(x)*.001
-  alpha <- dirichlet_fp(alpha, logx.mean,
-                        min = min.x, maxit = maxit, abstol = abstol)
+  # min.x <- min(x)*.001 # deprecated: constant added for alpha=0
+
+
+  # heuristic for starting values:
+  x.mean <- colMeans(x)
+  x.squares <- colMeans(x^2)
+  xi <- (x.mean - x.squares)/(x.squares - x.mean^2)
+  alpha0 <- xi * x.mean
+  alpha <- dirichlet_fp(pmin(alpha0, 5), logx.mean, #min = min.x,
+                        maxit = maxit, abstol = abstol)
+  # if this fails: random starting values
+  if (anyNA(alpha))
+    alpha <- dirichlet_fp(runif(length(alpha),0.5,1),
+                          logx.mean, # min = min.x,
+                          maxit = maxit, abstol = abstol)
+
   res <- list(alpha = alpha, sum = sum(alpha))
   return(res)
 }

@@ -1,3 +1,9 @@
+MCMCprec 0.3.1
+===========
+
+* Improved starting values for Dirichlet estimation algorithm
+
+
 MCMCprec 0.3.0
 ===========
 
