@@ -24,6 +24,8 @@ best.k <- function (samples,
     k <- ncol(samples)
   }
   R <- nrow(samples)
+  if (is.null(colnames(samples)))
+    colnames(samples) <- paste0("M",1:ncol(samples))
 
   # 1. standard summary
   pp <- t(apply(samples, 2, summ.samples))

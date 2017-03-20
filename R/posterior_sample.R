@@ -12,10 +12,10 @@ posterior.sample <- function (i,
   M <- ncol(tab)
 
   # 1.) sample from conjugate posterior with prior: Dirichlet(0,..,0)
-  P <- aa <- matrix(rgamma(M^2, tab + epsilon, 1),
+  P <- matrix(rgamma(M^2, tab + epsilon, 1),
                     nrow = M, ncol = M)
-  sel <- rowSums(aa) > 0
-  P[sel,] <- aa[sel,,drop=FALSE]/rowSums(aa[sel,,drop=FALSE])
+  sel <- rowSums(P) > 0
+  P[sel,] <- P[sel,,drop=FALSE]/rowSums(P[sel,,drop=FALSE])
   # 2.) get estimate for stationary distribution (largest eigenvalue = 1)
   # if (method == "base"){
   decomp <- eigen(t(P))

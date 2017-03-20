@@ -57,7 +57,7 @@ stationary <- function (z,
     labels <- NULL
 
   if (!missing(N) && !is.null(N)){
-    if (!is.matrix(N) || ncol(N) != nrow(N) || any(N<0) || any(N != round(N)))
+    if (ncol(N) != nrow(N) || any(N<0) || any(N != round(N)))
       stop ("The transition matrix 'N' has negative or non-integer values.")
     tab <- as.matrix(N)
   } else {
