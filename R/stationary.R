@@ -123,12 +123,18 @@ stationary <- function (z,
                                 FUN = function (ss)
                                   stationaryCppSparse(Matrix(tab, sparse = TRUE), sample = ss,
                                                       digits = digits, display_progress=FALSE)))
+    } else if (method == "eigen"){
+      samp <- do.call("rbind",
+                      parSapply(cl, X = rep(ceiling(sample/cpu), cpu), simplify = FALSE,
+                                FUN = function (ss)
+                                  stationaryEigen(tab, sample = ss, epsilon = epsilon,
+                                                  digits = digits, display_progress=FALSE)))
     } else if (method == "iid"){
       samp <-  do.call("rbind", parSapply(cl = cl, X = rep(ceiling(sample/cpu), cpu),
                                           FUN = rdirichlet, a = rowSums(tab) + epsilon,
                                           simplify = FALSE))
     } else if (method == "base"){
-      samp <- t(parSapply(cl, 1:sample, posterior.sample,
+      samp <- t(parSapply(cl, 1:sample, posterior.sample, epsilon = epsilon,
                           tab=tab, digits = digits))
     } else {
       stop ("method not supported.")
@@ -139,14 +145,16 @@ stationary <- function (z,
   samp[samp < 0] <- 0
   if (anyNA(samp))
     warning ("Sampled posterior model probabilities contain missing values.\n",
-             "  This might be due to a low precision of the eigenvalue decomposition.")
-  if (kappa(tab) == Inf)
-    warning ("Condition number of transition matrix is infinite.\n",
-             "  The eigenvalue decomposition might be numerically unstable.\n",
-             "  Use 'N.min=2' (or larger) to check for robustness.")
+             "  This might be due to a low precision of the eigenvalue decomposition.\n",
+             "  As a remedy, the Dirichlet prior can be changed, e.g., 'epsilon = .001'.")
+  # if (kappa(tab) == Inf)
+  #   warning ("Condition number of transition matrix is infinite.\n",
+  #            "  The eigenvalue decomposition might be numerically unstable.\n",
+  #            "  Use 'N.min=2' (or larger) to check for robustness.")
   if (!all(is.na(samp)) && (max(samp, na.rm = TRUE) == 1 ))
     warning ("Some models are assigned posterior probability of one.\n",
-             "  This indicates numerical issues with the eigenvalue decomposition.")
+             "  This indicates numerical issues with the eigenvalue decomposition.\n",
+             "  As a remedy, the Dirichlet prior can be changed, e.g., 'epsilon = .001'.")
 
   colnames(samp) <- colnames(tab)
   if (summary){
