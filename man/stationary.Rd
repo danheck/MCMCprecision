@@ -47,9 +47,9 @@ Transdimensional MCMC methods include a discrete model-indicator variable \eqn{Z
 The method draws independent posterior samples of the transition matrix \eqn{P} for the discrete-valued indicator variable \code{z} (usually, a sequence of sampled models). For each row of the transition matrix, a Dirichlet(0,...,0) prior is assumed, resulting in a conjugate Dirichlet posterior. For each sample, the eigenvector with eigenvalue 1 is computed and normalized (i.e., devided by its sum). The (independent) posterior samples can be used to assess the estimation uncertainty in the 'true' stationary distribution of interest (e.g., the model posterior probabilities).
 }
 \examples{
-P <- matrix(c(.9,.1,0,
-              .1,.6,.3,
-              .2,.3,.5), 3, byrow=TRUE)
+P <- matrix(c(.1,.5,.4,
+              0,.5,.5,
+              .9,.1,0), ncol = 3, byrow=TRUE)
 z <- sim.mc(1000, P)
 stationary(z)
 

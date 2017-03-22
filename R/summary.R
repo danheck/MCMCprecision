@@ -14,7 +14,7 @@
 #' summary(pp)
 #'
 #' @return a list with estimates for \code{"pp"} = model posterior probabilities, \code{"n.eff"} = effective sample size, and \code{"bf"} = pairwise Bayes factors (optional)
-#' @seealso \code{\link{stationary}}
+#' @seealso \code{\link{stationary}}, \code{\link{dirichlet.mle}}
 #' @export
 summary.stationary <- function(object,
                                BF = FALSE,
@@ -24,7 +24,7 @@ summary.stationary <- function(object,
   pp <- t(apply(samples, 2, summ.samples))
 
   n.eff <- NA
-  try (n.eff <- floor(dirichlet.est(na.omit(samples))$sum))
+  try (n.eff <- floor(dirichlet.mle(na.omit(samples))$sum))
 
   res <- list(pp=pp, n.eff=n.eff)
 

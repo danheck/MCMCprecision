@@ -8,7 +8,7 @@
 #'
 #' @importFrom parallel clusterExport makeCluster parSapply clusterEvalQ clusterExport stopCluster
 #' @importFrom Matrix Matrix
-#' @importFrom stats sd quantile rgamma na.omit
+#' @importFrom stats sd quantile rgamma na.omit runif
 #' @importFrom combinat combn
 #' @importFrom utils txtProgressBar setTxtProgressBar
 #' @importFrom Rcpp evalCpp

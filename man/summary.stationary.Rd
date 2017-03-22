@@ -29,5 +29,5 @@ summary(pp)
 
 }
 \seealso{
-\code{\link{stationary}}
+\code{\link{stationary}}, \code{\link{dirichlet.mle}}
 }

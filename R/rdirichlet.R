@@ -7,7 +7,7 @@
 #' @examples
 #' rdirichlet(2, c(1,5,3,8))
 #'
-#' @seealso \code{\link{dirichlet.est}}
+#' @seealso \code{\link{dirichlet.mle}}
 #' @export
 rdirichlet <- function (n, a){
 

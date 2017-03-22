@@ -30,9 +30,9 @@
 #' @seealso \code{\link{best.k}}, \code{\link{summary.stationary}}
 #'
 #' @examples
-#' P <- matrix(c(.9,.1,0,
-#'               .1,.6,.3,
-#'               .2,.3,.5), 3, byrow=TRUE)
+#' P <- matrix(c(.1,.5,.4,
+#'               0,.5,.5,
+#'               .9,.1,0), ncol = 3, byrow=TRUE)
 #' z <- sim.mc(1000, P)
 #' stationary(z)
 #'
@@ -57,8 +57,8 @@ stationary <- function (z,
     labels <- NULL
 
   if (!missing(N) && !is.null(N)){
-    if (ncol(N) != nrow(N) || any(N<0) || any(N != round(N)))
-      stop ("The transition matrix 'N' has negative or non-integer values.")
+    if (ncol(N) != nrow(N) || any(N<0))
+      stop ("The transition matrix 'N' has negative values.")
     tab <- as.matrix(N)
   } else {
     tab <- table.mc(z, labels=labels)

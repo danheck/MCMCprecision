@@ -8,12 +8,12 @@
 #' @param abstol The absolute convergence tolerance: maximaum of absolute differences of Dirichlet parameters.
 #' @examples
 #' x <- rdirichlet(50, c(8,1,3,9))
-#' dirichlet.est(x)
+#' dirichlet.mle(x)
 #' @seealso \code{\link{rdirichlet}}
 #' @references
 #' Minka, T. (2000). Estimating a Dirichlet distribution. Technical Report.
 #' @export
-dirichlet.est <- function (x,
+dirichlet.mle <- function (x,
                            const,
                            maxit = 1000,
                            abstol = 1e-4)
@@ -28,7 +28,6 @@ dirichlet.est <- function (x,
   logx.mean <- colMeans(log(x))
   N <- nrow(x)
   # min.x <- min(x)*.001 # deprecated: constant added for alpha=0
-
 
   # heuristic for starting values:
   x.mean <- colMeans(x)

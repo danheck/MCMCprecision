@@ -25,3 +25,7 @@ stationaryEigen <- function(N, epsilon = 0, sample = 5000L, display_progress = T
     .Call('MCMCprec_stationaryEigen', PACKAGE = 'MCMCprec', N, epsilon, sample, display_progress, digits)
 }
 
+stationary_mle <- function(pi, N, abstol = 1e-5, maxit = 1000L) {
+    .Call('MCMCprec_stationary_mle', PACKAGE = 'MCMCprec', pi, N, abstol, maxit)
+}
+
