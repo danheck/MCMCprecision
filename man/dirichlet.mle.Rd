@@ -4,7 +4,7 @@
 \alias{dirichlet.mle}
 \title{Estimate Parameters of Dirichlet Distribution}
 \usage{
-dirichlet.mle(x, const, maxit = 1000, abstol = 1e-04)
+dirichlet.mle(x, const, maxit = 3000, abstol = 1e-04)
 }
 \arguments{
 \item{x}{a matrix of Dirichlet samples, one row per observation}

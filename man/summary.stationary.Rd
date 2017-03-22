@@ -13,7 +13,7 @@
 
 \item{logBF}{whether to summarize log Bayes factors instead of Bayes factors}
 
-\item{...}{ignored}
+\item{...}{passed to \code{\link{dirichlet.mle}}}
 }
 \value{
 a list with estimates for \code{"pp"} = model posterior probabilities, \code{"n.eff"} = effective sample size, and \code{"bf"} = pairwise Bayes factors (optional)

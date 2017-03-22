@@ -5,7 +5,7 @@
 #' @param object posterior samples of the stationary distribution (rows = replications; columns = model probabilities)
 #' @param BF whether to compute summaries for all pairwise Bayes factors
 #' @param logBF whether to summarize log Bayes factors instead of Bayes factors
-#' @param ... ignored
+#' @param ... passed to \code{\link{dirichlet.mle}}
 #'
 #' @examples
 #' pp <- matrix(runif(100*3),100)
@@ -24,7 +24,7 @@ summary.stationary <- function(object,
   pp <- t(apply(samples, 2, summ.samples))
 
   n.eff <- NA
-  try (n.eff <- floor(dirichlet.mle(na.omit(samples))$sum))
+  try (n.eff <- floor(dirichlet.mle(na.omit(samples), ...)$sum))
 
   res <- list(pp=pp, n.eff=n.eff)
 
