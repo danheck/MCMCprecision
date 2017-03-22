@@ -53,8 +53,8 @@ stationary.mle <- function (z,
 
   } else if (method == "rev"){
     M <- ncol(N)
-    ev <- eigen(t(N))$vectors[,1]
-    pi <- stationary_mle(ev/sum(ev), N,
+    start <- stationary.mle(N = N, method = "iid")
+    pi <- stationary_mle(start, N,
                          abstol = abstol, maxit = maxit)
     # pi.old <- rep(.5,M)
     # N.row <- rowSums(N)
@@ -70,6 +70,10 @@ stationary.mle <- function (z,
   } else if (method == "eigen"){
     ev <- eigen(t(N/rowSums(N)))$vectors[,1]
     pi <- Re(ev/sum(ev))
+  } else {
+    stop ("Method not supported.")
   }
+
+  names(pi) <- colnames(N)
   pi
 }
