@@ -37,7 +37,7 @@ dirichlet.mle <- function (x,
   xi <- (x.mean - x.squares)/(x.squares - x.mean^2)
   alpha0 <- xi * x.mean
   alpha <- NULL
-  try(alpha <- dirichlet_fp(pmax(.02, pmin(50, alpha0)), logx.mean,
+  try(alpha <- dirichlet_fp(pmax(.01,  pmin(alpha0, 50)), logx.mean,
                         maxit = maxit, abstol = abstol), silent = TRUE)
   # if this fails: random starting values
   if (is.null(alpha) || anyNA(alpha))

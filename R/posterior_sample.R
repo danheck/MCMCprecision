@@ -24,10 +24,11 @@ posterior.sample <- function (i,
   # } else {
   #   stop ("Method not supported.")
   # }
-  if (round(decomp$values[1],digits) != 1){
+  idx <- which.max(Re(decomp$values))
+  if (round(decomp$values[idx],digits) != 1){
     return (rep(NA, M))
   } else {
-    ev <- Re(decomp$vectors[,1])
+    ev <- Re(decomp$vectors[,idx])
     return (ev/sum(ev))
   }
 }

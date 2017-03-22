@@ -13,15 +13,15 @@ sim_mc <- function(n, P, start) {
     .Call('MCMCprec_sim_mc', PACKAGE = 'MCMCprec', n, P, start)
 }
 
-stationaryCpp <- function(N, epsilon = 0, sample = 5000L, display_progress = TRUE, digits = 1e8L) {
-    .Call('MCMCprec_stationaryCpp', PACKAGE = 'MCMCprec', N, epsilon, sample, display_progress, digits)
+stationaryArma <- function(N, epsilon = 0, sample = 5000L, display_progress = TRUE, digits = 8.) {
+    .Call('MCMCprec_stationaryArma', PACKAGE = 'MCMCprec', N, epsilon, sample, display_progress, digits)
 }
 
-stationaryCppSparse <- function(N, sample = 5000L, display_progress = TRUE, digits = 1e8L) {
-    .Call('MCMCprec_stationaryCppSparse', PACKAGE = 'MCMCprec', N, sample, display_progress, digits)
+stationaryArmaSparse <- function(N, sample = 5000L, display_progress = TRUE, digits = 8.) {
+    .Call('MCMCprec_stationaryArmaSparse', PACKAGE = 'MCMCprec', N, sample, display_progress, digits)
 }
 
-stationaryEigen <- function(N, epsilon = 0, sample = 5000L, display_progress = TRUE, digits = 1e8L) {
+stationaryEigen <- function(N, epsilon = 0, sample = 5000L, display_progress = TRUE, digits = 8.) {
     .Call('MCMCprec_stationaryEigen', PACKAGE = 'MCMCprec', N, epsilon, sample, display_progress, digits)
 }
 

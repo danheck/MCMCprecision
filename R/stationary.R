@@ -76,14 +76,14 @@ stationary <- function (z,
   labels <- rownames(tab)
   if (cpu == 1){
     if (method == "arma"){
-      samp <- stationaryCpp(tab, sample = sample, epsilon = epsilon,
-                            digits = digits, display_progress=progress)
+      samp <- stationaryArma(tab, sample = sample, epsilon = epsilon,
+                             digits = digits, display_progress=progress)
 
     } else if (method == "armas") {
       if (epsilon != 0)
         warning ("'epsilon=0' is used if method='armas' (sparse matrices)")
-      samp <- stationaryCppSparse(Matrix(tab, sparse = TRUE), sample = sample,
-                                  digits = digits, display_progress=progress)
+      samp <- stationaryArmaSparse(Matrix(tab, sparse = TRUE), sample = sample,
+                                   digits = digits, display_progress=progress)
 
     } else if (method == "iid"){
       samp <- rdirichlet(sample, rowSums(tab) + epsilon)
@@ -115,16 +115,16 @@ stationary <- function (z,
       samp <- do.call("rbind",
                       parSapply(cl, X = rep(ceiling(sample/cpu), cpu), simplify = FALSE,
                                 FUN = function (ss)
-                                  stationaryCpp(tab, sample = ss, epsilon = epsilon,
-                                                digits = digits, display_progress = FALSE)))
+                                  stationaryArma(tab, sample = ss, epsilon = epsilon,
+                                                 digits = digits, display_progress = FALSE)))
     } else if (method == "armas"){
       if (epsilon != 0)
         warning ("'epsilon=0' is used if method='armas' (sparse matrices)")
       samp <- do.call("rbind",
                       parSapply(cl, X = rep(ceiling(sample/cpu), cpu), simplify = FALSE,
                                 FUN = function (ss)
-                                  stationaryCppSparse(Matrix(tab, sparse = TRUE), sample = ss,
-                                                      digits = digits, display_progress=FALSE)))
+                                  stationaryArmaSparse(Matrix(tab, sparse = TRUE), sample = ss,
+                                                       digits = digits, display_progress=FALSE)))
     } else if (method == "eigen"){
       samp <- do.call("rbind",
                       parSapply(cl, X = rep(ceiling(sample/cpu), cpu), simplify = FALSE,
@@ -149,7 +149,7 @@ stationary <- function (z,
     warning (
       "Sampled posterior model probabilities contain NAs/NaNs.\n",
       "  This might be due to low precision of the eigenvalue decomposition.\n",
-      "  As a remedy, the Dirichlet prior can be changed, e.g., 'epsilon = .01'.")
+      "  As a remedy, use 'digits=1' or change the Dirichlet prior (e.g., 'epsilon = .1')")
 
   if (!all(is.na(samp)) && (max(samp, na.rm = TRUE) == 1 ))
     warning (

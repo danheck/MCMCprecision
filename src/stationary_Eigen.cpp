@@ -41,7 +41,7 @@ Eigen::MatrixXd stationaryEigen(Eigen::MatrixXd N,
                                 double epsilon = 0,
                                 int sample = 5000,
                                 bool display_progress=true,
-                                int digits = 1e8)
+                                double digits = 8.)
 {
   int M = N.cols();
   int steps = round (1000/M);
@@ -49,6 +49,7 @@ Eigen::MatrixXd stationaryEigen(Eigen::MatrixXd N,
   Eigen::MatrixXd freqt = N.transpose() + epsilon * Eigen::MatrixXd::Ones(M, M);
   Progress p(sample, display_progress);
 
+  Eigen::MatrixXf::Index maxIdx;
   bool run = true;
   for (int i=0; i < sample; i++)
   {
@@ -65,12 +66,13 @@ Eigen::MatrixXd stationaryEigen(Eigen::MatrixXd N,
       try
       {
         Eigen::EigenSolver<Eigen::MatrixXd> es(Pt);
-        // Rcout << es;
         Eigen::VectorXcd values = es.eigenvalues();
+        values.real().maxCoeff(&maxIdx);
+        // Rcout  << maxIdx << "///" << values << "\n";
 
-        if( round( values(0).real()*digits) == digits)
+        if( abs(values(maxIdx).real() - 1.) < pow(10, -digits) )
         {
-          Eigen::VectorXd ev = es.eigenvectors().col(0).real();
+          Eigen::VectorXd ev = es.eigenvectors().col(maxIdx).real();
           samp.row(i) = ev / ev.sum();
         }
       }
