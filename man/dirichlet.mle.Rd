@@ -9,14 +9,17 @@ dirichlet.mle(x, const, maxit = 1e+05, abstol = 1e-04)
 \arguments{
 \item{x}{a matrix of Dirichlet samples, one row per observation}
 
-\item{const}{constant that is added to zeros (to avoid problems in \code{log(x)})}
+\item{const}{constant that is added to zeros (to avoid problems in \code{log(x)}). The default is \code{const = min(x[x>0])*.01}}
 
 \item{maxit}{maximum number of iterations}
 
-\item{abstol}{The absolute convergence tolerance: maximaum of absolute differences of Dirichlet parameters.}
+\item{abstol}{The absolute convergence tolerance: maximum of absolute differences of Dirichlet parameters.}
 }
 \description{
 Fast C++ implementation of the fixed-point iteration algorithm by Minka (2000).
+}
+\details{
+The algorithm is used to estimate the effective sample size for based on samples of posterior model probabilities (see \code{\link{stationary}} and \code{\link{summary.stationary}}).
 }
 \examples{
 x <- rdirichlet(50, c(8,1,3,9))

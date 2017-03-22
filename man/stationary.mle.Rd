@@ -10,7 +10,7 @@ stationary.mle(z, N, labels, method = "rev", abstol = 1e-05,
 \arguments{
 \item{z}{MCMC output for the discrete indicator variable with numerical, character, or factor labels (can also be a \code{\link[coda]{mcmc.list}} or a matrix with one MCMC chain per column).}
 
-\item{N}{the observed transition matrix (if supplied, \code{z} is ignored). A quadratic matrix with switching frequencies \eqn{N[i,j] = #{ z[t]=i & z[t+1]=j }}}
+\item{N}{the observed transition matrix (if supplied, \code{z} is ignored). A quadratic matrix with sampled transition frequencies \eqn{N[i,j] = #{ z[t]=i & z[t+1]=j }}}
 
 \item{labels}{optional: vector of labels for complete set of models (e.g., models not sampled in the chain \code{z}). If \code{epsilon=0}, this does not affect inferences due to the improper Dirichlet(0,..,0) prior.}
 
