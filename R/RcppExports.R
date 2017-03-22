@@ -5,7 +5,7 @@ inv_digamma <- function(y, iter = 5L) {
     .Call('MCMCprec_inv_digamma', PACKAGE = 'MCMCprec', y, iter)
 }
 
-dirichlet_fp <- function(alpha, logx_mean, maxit = 3000L, abstol = 1e-5) {
+dirichlet_fp <- function(alpha, logx_mean, maxit = 1e5L, abstol = 1e-5) {
     .Call('MCMCprec_dirichlet_fp', PACKAGE = 'MCMCprec', alpha, logx_mean, maxit, abstol)
 }
 
@@ -25,7 +25,7 @@ stationaryEigen <- function(N, epsilon = 0, sample = 5000L, display_progress = T
     .Call('MCMCprec_stationaryEigen', PACKAGE = 'MCMCprec', N, epsilon, sample, display_progress, digits)
 }
 
-stationary_mle <- function(pi, N, abstol = 1e-5, maxit = 1000L) {
+stationary_mle <- function(pi, N, abstol = 1e-5, maxit = 1e5L) {
     .Call('MCMCprec_stationary_mle', PACKAGE = 'MCMCprec', pi, N, abstol, maxit)
 }
 

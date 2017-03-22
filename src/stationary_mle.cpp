@@ -5,7 +5,7 @@ using namespace Rcpp;
 NumericVector stationary_mle (NumericVector pi,
                               NumericMatrix N,
                               double abstol = 1e-5,
-                              int maxit = 1000)
+                              int maxit = 1e5)
 {
   NumericVector pi0(clone(pi));
   int M = N.cols();
@@ -24,5 +24,7 @@ NumericVector stationary_mle (NumericVector pi,
     diff = max(abs(pi0 - pi));
     // Rcout << cnt << " / ", diff << "::: " << pi << " // " << pi0 << "\n";
   }
+  if (cnt == maxit)
+    warning("Maximum number of iterations reached.");
   return (pi);
 }

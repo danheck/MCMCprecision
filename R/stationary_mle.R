@@ -36,7 +36,7 @@ stationary.mle <- function (z,
                             labels,
                             method = "rev",
                             abstol = 1e-5,
-                            maxit = 1000){
+                            maxit = 1e5){
 
   if (missing(labels))
     labels <- NULL

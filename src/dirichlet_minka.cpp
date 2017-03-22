@@ -25,14 +25,14 @@ NumericVector inv_digamma(NumericVector y,
 // [[Rcpp::export]]
 NumericVector dirichlet_fp(NumericVector alpha,
                            NumericVector logx_mean,
-                           int maxit = 3000,
+                           int maxit = 1e5,
                            double abstol = 1e-5)
 {
   NumericVector alpha0 = alpha;
-  int cnt = 1;
+  int cnt = 0;
   double diff = 1.;
 
-  while ((diff > abstol) && (cnt <= maxit)) {
+  while ((diff > abstol) && (cnt < maxit)) {
     alpha0 = alpha;
     // Fixpoint iteration:
     alpha = inv_digamma(R::digamma(sum(alpha)) + logx_mean);
@@ -41,6 +41,8 @@ NumericVector dirichlet_fp(NumericVector alpha,
     // alpha[alpha < 0] = min;
     diff = max(abs(alpha0 - alpha));
   }
+  if (cnt == maxit)
+    warning("Maximum number of iterations reached.");
   return alpha;
 }
 

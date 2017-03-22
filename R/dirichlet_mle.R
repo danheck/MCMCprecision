@@ -15,7 +15,7 @@
 #' @export
 dirichlet.mle <- function (x,
                            const,
-                           maxit = 3000,
+                           maxit = 1e5,
                            abstol = 1e-4)
 {
   # adjust for x=0  (because of log(x) = -Inf)
@@ -33,7 +33,7 @@ dirichlet.mle <- function (x,
   x.squares <- colMeans(x^2)
   xi <- (x.mean - x.squares)/(x.squares - x.mean^2)
   alpha0 <- xi * x.mean
-  alpha <- dirichlet_fp(pmax(.1, pmin(10, alpha0)), logx.mean,
+  alpha <- dirichlet_fp(pmax(.05, pmin(20, alpha0)), logx.mean,
                         maxit = maxit, abstol = abstol)
   # if this fails: random starting values
   if (anyNA(alpha))

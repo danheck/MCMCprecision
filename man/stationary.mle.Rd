@@ -4,7 +4,8 @@
 \alias{stationary.mle}
 \title{MLE for stationary distribution of discrete MCMC variables}
 \usage{
-stationary.mle(z, N, labels, method = "rev", abstol = 1e-05, maxit = 1000)
+stationary.mle(z, N, labels, method = "rev", abstol = 1e-05,
+  maxit = 1e+05)
 }
 \arguments{
 \item{z}{MCMC output for the discrete indicator variable with numerical, character, or factor labels (can also be a \code{\link[coda]{mcmc.list}} or a matrix with one MCMC chain per column).}
