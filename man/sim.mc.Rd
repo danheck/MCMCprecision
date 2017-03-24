@@ -9,7 +9,7 @@ sim.mc(n, P, start = rep(1, ncol(P)))
 \arguments{
 \item{n}{length}
 
-\item{P}{transition matrix}
+\item{P}{transition matrix (rows are normalized to sum to 1)}
 
 \item{start}{starting distribution (discrete uniform by default)}
 }

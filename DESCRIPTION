@@ -1,13 +1,11 @@
 Package: MCMCprec
 Type: Package
-Title: Precision for Discrete Parameters in Transdimensional MCMC
+Title: Precision of Discrete Parameters in Transdimensional MCMC
 Version: 0.3.4
 Authors@R: c(person("Daniel W.","Heck", email="heck@uni-mannheim.de",role=c("aut","cre")))
 Author: Daniel W. Heck [aut, cre]
 Maintainer: Daniel W. Heck <heck@uni-mannheim.de>
-Description: Estimates the precision of the estimated posterior model
-    probabilities in transdimensional MCMC (e.g., reversible jump or product-space
-    method).
+Description: Estimates the precision of the posterior model probabilities in transdimensional Markov chain Monte Carlo methods (e.g., reversible jump MCMC or product-space MCMC). This is useful for applications of transdimensional MCMC such as model selection, mixtures with varying numbers of components, change-point detection, capture-recapture models, phylogenetic trees, variable selection, and for discrete parameters in MCMC output in general.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true

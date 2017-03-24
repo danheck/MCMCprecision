@@ -6,7 +6,7 @@ To install `MCMCprec` from GitHub, paste the following code to R (dependencies n
 
 ```r
 ### Dependencies:
-# install.packages(c("combinat", "devtools","RcppProgress","RcppArmadillo"))
+# install.packages(c("combinat", "devtools","RcppProgress","RcppArmadillo", "RcppEigen"))
 
 library(devtools)
 install_github("danheck/MCMCprec")
@@ -21,4 +21,4 @@ sudo tar fvxz gfortran-4.8.2-darwin13.tar.bz2 -C /
 
 ## Reference
 
-* Heck, D. W., Gronau, Q. F., Overstall, A. M., & Wagenmakers, E.-J. (2017). Estimating the Precision of Transdimensional Markov Chain Monte Carlo Methods.
+* Heck, D. W., Gronau, Q. F., Overstall, A. M., & Wagenmakers, E.-J. (2017). Quantifying uncertainty in transdimensional Markov chain Monte Carlo using discrete Markov models.

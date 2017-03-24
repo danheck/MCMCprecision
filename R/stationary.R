@@ -1,4 +1,4 @@
-#' Estimate stationary distribution for discrete MCMC variables
+#' Posterior of stationary distribution for discrete MCMC variables
 #'
 #' Transdimensional MCMC methods include a discrete model-indicator variable \eqn{Z} with a fixed but unknown stationary distribution \eqn{\pi} (i.e., the model posterior probabiltiies). The function \code{stationary} draws posterior samples to assess the estimation uncertainty for \eqn{\pi}.
 #'
@@ -14,10 +14,10 @@
 #'
 #' @param method how to compute eigenvectors:
 #' \itemize{
-#'   \item \code{"base"}: Uses \code{base::\link[base]{eigen}}, which is most stable, but can be slower than \code{"arma"} for small transition matrices
 #'   \item \code{"arma"}: Uses \code{RcppArmadillo::eig_gen}
-#'   \item \code{"armas"}: Uses sparse matrices with \code{RcppArmadillo::eigs_gen}, which can be faster for very large number of models if \code{epsilon=0} (but also numerically unstable)
+#'   \item \code{"base"}: Uses \code{base::\link[base]{eigen}}, which is most stable, but can be slower than \code{"arma"} for small transition matrices
 #'   \item \code{"eigen"}: Uses package \code{RcppEigen::EigenSolver}
+#'   \item \code{"armas"}: Uses sparse matrices with \code{RcppArmadillo::eigs_gen}, which can be faster for very large number of models if \code{epsilon=0} (but also numerically unstable)
 #'   \item \code{"iid"}: Assumes i.i.d. sampling of the model indicator variable \code{z}. This is only implemented as a benchmark, because results cannot be trusted if the samples \code{z} are correlated (which is usually the case for transdimensional MCMC output)
 #'  }
 #' @param digits number of digits that are used for checking whether the first eigenvalue is equal to 1 (any difference must be due to low numerical precision)
@@ -51,7 +51,7 @@ stationary <- function (z,
                         sample = 1000,
                         epsilon = "1/M",
                         cpu = 1,
-                        method = "base",
+                        method = "arma",
                         digits = 6,
                         progress = TRUE,
                         summary = TRUE){

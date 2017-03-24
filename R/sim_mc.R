@@ -3,7 +3,7 @@
 #' Generates a sequence of discrete states from a discrete-time Markov chain with transition matrix P.
 #'
 #' @param n length
-#' @param P transition matrix
+#' @param P transition matrix (rows are normalized to sum to 1)
 #' @param start starting distribution (discrete uniform by default)
 #' @examples
 #' P <- matrix(c(.3,.5,.2,
@@ -14,8 +14,9 @@
 sim.mc <- function(n, P, start=rep(1, ncol(P))){
 
   if(!is.matrix(P) || ncol(P) != nrow(P) ||
-     any(P<0) || any(round(rowSums(P),5) != 1) || ncol(P) <= 2)
-      stop("'P' must be a transition matrix with positive values and rows summing to one.")
+     any(P<0) || ncol(P) < 2)
+      stop("'P' must be a transition matrix with positive values.")
+  P <- P/rowSums(P)
   if(!is.numeric(n) || n != round(n) || n <= 1 || length(n) != 1)
     stop("'n' must be a positive integer")
   if(!is.numeric(start) || !is.vector(start) || length(start) != ncol(P))

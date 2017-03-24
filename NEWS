@@ -4,7 +4,8 @@ MCMCprec 0.3.3
 * Alternative method to compute eigenvectors: RcppEigen package
 * Improved starting values for Dirichlet estimation algorithm
 * Maximum likelihood estimation of stationary distribution: stationary.mle()
-* Changes prior to epsilon=1/M (M= number of sampled models)
+* Changed default prior to epsilon=1/M (M= number of sampled models)
+* Changed default method to compute eigenvalue decomposition to RcppArmadillo (method="arma")
 
 
 MCMCprec 0.3.0

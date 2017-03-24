@@ -2,10 +2,10 @@
 % Please edit documentation in R/stationary.R
 \name{stationary}
 \alias{stationary}
-\title{Estimate stationary distribution for discrete MCMC variables}
+\title{Posterior of stationary distribution for discrete MCMC variables}
 \usage{
 stationary(z, N, labels, sample = 1000, epsilon = "1/M", cpu = 1,
-  method = "base", digits = 6, progress = TRUE, summary = TRUE)
+  method = "arma", digits = 6, progress = TRUE, summary = TRUE)
 }
 \arguments{
 \item{z}{MCMC output for the discrete indicator variable with numerical, character, or factor labels (can also be a \code{\link[coda]{mcmc.list}} or a matrix with one MCMC chain per column).}
@@ -22,10 +22,10 @@ stationary(z, N, labels, sample = 1000, epsilon = "1/M", cpu = 1,
 
 \item{method}{how to compute eigenvectors:
 \itemize{
-  \item \code{"base"}: Uses \code{base::\link[base]{eigen}}, which is most stable, but can be slower than \code{"arma"} for small transition matrices
   \item \code{"arma"}: Uses \code{RcppArmadillo::eig_gen}
-  \item \code{"armas"}: Uses sparse matrices with \code{RcppArmadillo::eigs_gen}, which can be faster for very large number of models if \code{epsilon=0} (but also numerically unstable)
+  \item \code{"base"}: Uses \code{base::\link[base]{eigen}}, which is most stable, but can be slower than \code{"arma"} for small transition matrices
   \item \code{"eigen"}: Uses package \code{RcppEigen::EigenSolver}
+  \item \code{"armas"}: Uses sparse matrices with \code{RcppArmadillo::eigs_gen}, which can be faster for very large number of models if \code{epsilon=0} (but also numerically unstable)
   \item \code{"iid"}: Assumes i.i.d. sampling of the model indicator variable \code{z}. This is only implemented as a benchmark, because results cannot be trusted if the samples \code{z} are correlated (which is usually the case for transdimensional MCMC output)
  }}
 
