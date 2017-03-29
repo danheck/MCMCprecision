@@ -1,4 +1,4 @@
-Package: MCMCprec
+Package: MCMCprecision
 Type: Package
 Title: Precision of Discrete Parameters in Transdimensional MCMC
 Version: 0.3.4

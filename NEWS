@@ -1,4 +1,4 @@
-MCMCprec 0.3.3
+MCMCprecision 0.3.3
 ===========
 
 * Alternative method to compute eigenvectors: RcppEigen package
@@ -8,7 +8,7 @@ MCMCprec 0.3.3
 * Changed default method to compute eigenvalue decomposition to RcppArmadillo (method="arma")
 
 
-MCMCprec 0.3.0
+MCMCprecision 0.3.0
 ===========
 
 * Improved estimation of Dirichlet parameters to get effective sample size (C++ version of fixed-point algorithm by Mink, 2000)
@@ -17,13 +17,13 @@ MCMCprec 0.3.0
 * Updated licence: GPL-3 (instead of GPL-2)
 
 
-MCMCprec 0.2.1
+MCMCprecision 0.2.1
 ===========
 
 * New function best.k() to assess estimation uncertainty for the k models with the highest posterior model probabilities
 
 
-MCMCprec 0.2.0
+MCMCprecision 0.2.0
 ===========
 
 * Implementations with RcppArmadillo::eig_gen and base::eigen
