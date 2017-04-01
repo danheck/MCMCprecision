@@ -12,8 +12,8 @@
 #' @importFrom combinat combn
 #' @importFrom utils txtProgressBar setTxtProgressBar
 #' @importFrom Rcpp evalCpp
-#' @useDynLib MCMCprecision
+#' @useDynLib "MCMCprecision", .registration=TRUE
 #' @references
-#' Heck, D. W., Overstall, A. M., Gronau, Q. F., & Wagenmakers, E.-J. (2017). Quantifying uncertainty in transdimensional Markov chain Monte Carlo using discrete Markov models.
+#' Heck, D. W., Overstall, A. M., Gronau, Q. F., & Wagenmakers, E.-J. (2017). Quantifying uncertainty in transdimensional Markov chain Monte Carlo using discrete Markov models. https://arxiv.org/abs/1703.10364
 #'
 "_PACKAGE"

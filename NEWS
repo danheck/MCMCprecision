@@ -6,6 +6,7 @@ MCMCprecision 0.3.3
 * Maximum likelihood estimation of stationary distribution: stationary.mle()
 * Changed default prior to epsilon=1/M (M= number of sampled models)
 * Changed default method to compute eigenvalue decomposition to RcppArmadillo (method="arma")
+* Registered C++ routines
 
 
 MCMCprecision 0.3.0

@@ -21,4 +21,4 @@ sudo tar fvxz gfortran-4.8.2-darwin13.tar.bz2 -C /
 
 ## Reference
 
-* Heck, D. W., Overstall, A. M., Gronau, Q. F., & Wagenmakers, E.-J. (2017). Quantifying uncertainty in transdimensional Markov chain Monte Carlo using discrete Markov models.
+* Heck, D. W., Overstall, A. M., Gronau, Q. F., & Wagenmakers, E.-J. (2017). Quantifying uncertainty in transdimensional Markov chain Monte Carlo using discrete Markov models. [arxiv:1703.10364](https://arxiv.org/abs/1703.10364)
