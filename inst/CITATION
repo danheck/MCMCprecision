@@ -1,14 +1,14 @@
-bibentry("Manual",
+bibentry("Article",
 		title="Quantifying uncertainty in transdimensional Markov chain Monte Carlo using discrete Markov models",
 		author="Heck, D. W., Overstall, A. M., Gronau, Q. F., & Wagenmakers, E.-J.",
+		journal = "Manuscript submitted for publication",
 		year="2017",
-		note="(Version 0.3.4)",
-		url="https://github.com/danheck/MCMCprecision",
+		url="https://arxiv.org/abs/1703.10364",
 
 		textVersion =
 		paste("Heck, D. W., Overstall, A. M., Gronau, Q. F., & Wagenmakers, E.-J.  (2017). ",
-				"Quantifying uncertainty in transdimensional Markov chain Monte Carlo using discrete Markov models. ",
-				"https://github.com/danheck/MCMCprecision",
+				"Quantifying uncertainty in transdimensional Markov chain Monte Carlo using discrete Markov models. Manuscript submitted for publication. ",
+				"https://arxiv.org/abs/1703.10364",
 				sep=""),
 
 		mheader = "To cite MCMCprecision in publications use:")
