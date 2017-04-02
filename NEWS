@@ -1,3 +1,9 @@
+MCMCprecision 0.3.6
+===========
+
+* Fixed WARNING: Found ‘__assert_fail’, possibly from ‘assert’ (C)
+
+
 MCMCprecision 0.3.5
 ===========
 
