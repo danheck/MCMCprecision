@@ -1,3 +1,8 @@
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/MCMCprecision)](http://cran.r-project.org/package=MCMCprecision)
+[![Licence](https://img.shields.io/badge/licence-GPL--2-green.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+<!--[![monthly downloads](http://cranlogs.r-pkg.org/badges/MCMCprecision)](http://cranlogs.r-pkg.org/badges/MCMCprecision)
+[![total downloads](http://cranlogs.r-pkg.org/badges/grand-total/MCMCprecision)](http://cranlogs.r-pkg.org/badges/grand-total/MCMCprecision)-->
+
 # MCMCprecision: Precision for discrete parameters in transdimensional MCMC
 
 The R package `MCMCprecision` estimates the precision of the posterior model probabilities in transdimensional Markov chain Monte Carlo methods (e.g., reversible jump MCMC or product-space MCMC). This is useful for applications of transdimensional MCMC such as model selection, mixtures with varying numbers of components, change-point detection, capture-recapture models, phylogenetic trees, variable selection, and for discrete parameters in MCMC output in general.
