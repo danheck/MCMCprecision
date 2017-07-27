@@ -1,5 +1,6 @@
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/MCMCprecision)](http://cran.r-project.org/package=MCMCprecision)
 [![Licence](https://img.shields.io/badge/licence-GPL--2-green.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+[![DOI](https://zenodo.org/badge/79934595.svg)](https://zenodo.org/badge/latestdoi/79934595)
 <!--[![monthly downloads](http://cranlogs.r-pkg.org/badges/MCMCprecision)](http://cranlogs.r-pkg.org/badges/MCMCprecision)
 [![total downloads](http://cranlogs.r-pkg.org/badges/grand-total/MCMCprecision)](http://cranlogs.r-pkg.org/badges/grand-total/MCMCprecision)-->
 
