@@ -1,7 +1,8 @@
 Package: MCMCprecision
 Type: Package
 Title: Precision of Discrete Parameters in Transdimensional MCMC
-Version: 0.3.6
+Version: 0.3.7
+Date: 2017-08-04
 Authors@R: c(person("Daniel W.","Heck", email="heck@uni-mannheim.de",role=c("aut","cre")))
 Author: Daniel W. Heck [aut, cre]
 Maintainer: Daniel W. Heck <heck@uni-mannheim.de>
@@ -13,7 +14,7 @@ Description: Estimates the precision of transdimensional Markov chain Monte Carl
     precision may be low and assessment based on the assumption of independent 
     samples misleading. Based on the observed transition matrix of the indicator 
     variable, the method of Heck, Overstall, Gronau, & Wagenmakers (2017) 
-    <https://arxiv.org/abs/1703.10364> draws posterior samples of the stationary
+    <arxiv:1703.10364> draws posterior samples of the stationary
     distribution to (a) assess the uncertainty in the estimated posterior model 
     probabilities and (b) estimate the effective sample size of the MCMC output.
 License: GPL (>= 2)

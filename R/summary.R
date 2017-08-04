@@ -19,7 +19,7 @@
 #'
 #' @return a list with estimates for \code{"pp"} = posterior model probabilities, \code{"n.eff"} = effective sample size, and \code{"bf"} = pairwise Bayes factors (optional)
 #' @seealso \code{\link{stationary}}, \code{\link{dirichlet.mle}}
-#' @export
+#' @method summary stationary
 summary.stationary <- function(object,
                                BF = FALSE,
                                logBF = FALSE,
