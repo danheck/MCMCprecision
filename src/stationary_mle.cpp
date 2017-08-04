@@ -1,6 +1,13 @@
 #include <RcppArmadillo.h>
 using namespace Rcpp;
 
+
+// estimation under assumption that MC is reversible
+//
+// Trendelkamp-Schroer, B., Wu, H., Paul, F., & Noé, F. (2015).
+// Estimation and uncertainty of reversible Markov models.
+// The Journal of Chemical Physics, 143(17), 174101.
+// https://doi.org/10.1063/1.4934536
 // [[Rcpp::export]]
 NumericVector stationary_mle (NumericVector pi,
                               NumericMatrix N,

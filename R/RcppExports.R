@@ -2,30 +2,30 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 inv_digamma <- function(y, iter = 5L) {
-    .Call('MCMCprecision_inv_digamma', PACKAGE = 'MCMCprecision', y, iter)
+    .Call(`_MCMCprecision_inv_digamma`, y, iter)
 }
 
 dirichlet_fp <- function(alpha, logx_mean, maxit = 1e5L, abstol = 1e-5) {
-    .Call('MCMCprecision_dirichlet_fp', PACKAGE = 'MCMCprecision', alpha, logx_mean, maxit, abstol)
+    .Call(`_MCMCprecision_dirichlet_fp`, alpha, logx_mean, maxit, abstol)
 }
 
 sim_mc <- function(n, P, start) {
-    .Call('MCMCprecision_sim_mc', PACKAGE = 'MCMCprecision', n, P, start)
+    .Call(`_MCMCprecision_sim_mc`, n, P, start)
 }
 
 stationaryArma <- function(N, epsilon = 0, sample = 5000L, display_progress = TRUE, digits = 8.) {
-    .Call('MCMCprecision_stationaryArma', PACKAGE = 'MCMCprecision', N, epsilon, sample, display_progress, digits)
+    .Call(`_MCMCprecision_stationaryArma`, N, epsilon, sample, display_progress, digits)
 }
 
 stationaryArmaSparse <- function(N, sample = 5000L, display_progress = TRUE, digits = 8.) {
-    .Call('MCMCprecision_stationaryArmaSparse', PACKAGE = 'MCMCprecision', N, sample, display_progress, digits)
+    .Call(`_MCMCprecision_stationaryArmaSparse`, N, sample, display_progress, digits)
 }
 
 stationaryEigen <- function(N, epsilon = 0, sample = 5000L, display_progress = TRUE, digits = 8.) {
-    .Call('MCMCprecision_stationaryEigen', PACKAGE = 'MCMCprecision', N, epsilon, sample, display_progress, digits)
+    .Call(`_MCMCprecision_stationaryEigen`, N, epsilon, sample, display_progress, digits)
 }
 
 stationary_mle <- function(pi, N, abstol = 1e-5, maxit = 1e5L) {
-    .Call('MCMCprecision_stationary_mle', PACKAGE = 'MCMCprecision', pi, N, abstol, maxit)
+    .Call(`_MCMCprecision_stationary_mle`, pi, N, abstol, maxit)
 }
 
