@@ -14,7 +14,7 @@ Description: Estimates the precision of transdimensional Markov chain Monte Carl
     precision may be low and assessment based on the assumption of independent 
     samples misleading. Based on the observed transition matrix of the indicator 
     variable, the method of Heck, Overstall, Gronau, & Wagenmakers (2017) 
-    <arxiv:1703.10364> draws posterior samples of the stationary
+    <arXiv:1703.10364> draws posterior samples of the stationary
     distribution to (a) assess the uncertainty in the estimated posterior model 
     probabilities and (b) estimate the effective sample size of the MCMC output.
 License: GPL (>= 2)
