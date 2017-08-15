@@ -29,6 +29,6 @@ test_that("'stationary' works", {
   expect_silent(s4 <- stationary(N = N, progress = FALSE))
   expect_equal(s1$pp, s4$pp, tol = .01)
 
-  expect_silent(s5 <- stationary(N = N, cpu = 2))
-  expect_equal(s1$pp, s5$pp, tol = .01)
+  # expect_silent(s5 <- stationary(N = N, cpu = 2))
+  # expect_equal(s1$pp, s5$pp, tol = .01)
 })

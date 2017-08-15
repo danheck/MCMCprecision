@@ -7,9 +7,12 @@
 #' @examples
 #' rdirichlet(2, c(1,5,3,8))
 #'
-#' @seealso \code{\link{dirichlet.mle}}
+#' @seealso \code{\link{fit_dirichlet}}
 #' @export
 rdirichlet <- function (n, a){
+
+  if (any(a < 0))
+    stop("'a' must be nonnegative.")
 
   # parameters in columns:
   a <- rbind(a)

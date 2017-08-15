@@ -19,5 +19,5 @@ rdirichlet(2, c(1,5,3,8))
 
 }
 \seealso{
-\code{\link{dirichlet.mle}}
+\code{\link{fit_dirichlet}}
 }
