@@ -3,9 +3,6 @@
 #include <RcppEigen.h>
 #include <progress.hpp>
 
-// [[Rcpp::depends(RcppEigen)]]
-// [[Rcpp::depends(RcppProgress)]]
-
 using namespace Rcpp;
 
 // using Eigen::Map;               	// 'maps' rather than copies
@@ -40,14 +37,14 @@ Eigen::MatrixXd rdirichletPt(Eigen::MatrixXd Pt)
 Eigen::MatrixXd stationaryEigen(Eigen::MatrixXd N,
                                 double epsilon = 0,
                                 int sample = 5000,
-                                bool display_progress=true,
+                                bool progress=true,
                                 double digits = 8.)
 {
   int M = N.cols();
   int steps = round (1000/M);
   Eigen::MatrixXd samp = -99 * Eigen::MatrixXd::Ones(sample, M);
   Eigen::MatrixXd freqt = N.transpose() + epsilon * Eigen::MatrixXd::Ones(M, M);
-  Progress p(sample, display_progress);
+  Progress p(sample, progress);
 
   Eigen::MatrixXf::Index maxIdx;
   bool run = true;
@@ -70,7 +67,7 @@ Eigen::MatrixXd stationaryEigen(Eigen::MatrixXd N,
         values.real().maxCoeff(&maxIdx);
         // Rcout  << maxIdx << "///" << values << "\n";
 
-        if( abs(values(maxIdx).real() - 1.) < pow(10, -digits) )
+        if( abs(values(maxIdx).real() - 1) < pow(10, -digits) )
         {
           Eigen::VectorXd ev = es.eigenvectors().col(maxIdx).real();
           samp.row(i) = ev / ev.sum();

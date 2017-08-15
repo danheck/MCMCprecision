@@ -4,7 +4,7 @@
 \alias{dirichlet.mle}
 \title{Estimate Parameters of Dirichlet Distribution}
 \usage{
-dirichlet.mle(x, const, maxit = 1e+05, abstol = 1e-04)
+dirichlet.mle(x, const, maxit = 1e+05, abstol = 0.1)
 }
 \arguments{
 \item{x}{a matrix of Dirichlet samples, one row per observation}
@@ -22,7 +22,7 @@ Fast C++ implementation of the fixed-point iteration algorithm by Minka (2000).
 The algorithm is used to estimate the effective sample size for based on samples of posterior model probabilities (see \code{\link{stationary}} and \code{\link{summary.stationary}}).
 }
 \examples{
-x <- rdirichlet(50, c(8,1,3,9))
+x <- rdirichlet(100, c(8,1,3,9))
 dirichlet.mle(x)
 }
 \references{

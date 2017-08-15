@@ -8,11 +8,18 @@ stationary.mle(z, N, labels, method = "rev", abstol = 1e-05,
   maxit = 1e+05)
 }
 \arguments{
-\item{z}{MCMC output for the discrete indicator variable with numerical, character, or factor labels (can also be a \code{\link[coda]{mcmc.list}} or a matrix with one MCMC chain per column).}
+\item{z}{MCMC output for the discrete indicator variable with numerical,
+character, or factor labels (can also be a \code{\link[coda]{mcmc.list}}
+or a matrix with one MCMC chain per column).}
 
-\item{N}{the observed transition matrix (if supplied, \code{z} is ignored). A quadratic matrix with sampled transition frequencies (N[i,j] = number of switches from z[t]=i to z[t+1]=j)}
+\item{N}{the observed \code{\link{transitions}} matrix (if supplied, \code{z} is ignored).
+A quadratic matrix with sampled transition frequencies
+(\code{N[i,j]} = number of switches from \code{z[t]=i} to \code{z[t+1]=j}).
+Note: by providing \code{N}, it is not possible to perform posterior predictive checks.}
 
-\item{labels}{optional: vector of labels for complete set of models (e.g., models not sampled in the chain \code{z}). If \code{epsilon=0}, this does not affect inferences due to the improper Dirichlet(0,..,0) prior.}
+\item{labels}{optional: vector of labels for complete set of models
+(e.g., models not sampled in the chain \code{z}). If \code{epsilon=0},
+this does not affect inferences due to the improper Dirichlet(0,..,0) prior.}
 
 \item{method}{Different types of MLEs:
 \itemize{
@@ -38,11 +45,11 @@ The estimates are implemented mainly for comparison with the Bayesian sampling a
 P <- matrix(c(.1,.5,.4,
               0,.5,.5,
               .9,.1,0), ncol = 3, byrow=TRUE)
-z <- sim.mc(1000, P)
+z <- rmarkov(1000, P)
 stationary.mle(z)
 
 # input: transition frequency
-tab <- table.mc(z)
+tab <- transitions(z)
 stationary.mle(N = tab)
 }
 \references{

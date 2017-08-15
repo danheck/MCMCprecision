@@ -22,21 +22,17 @@
 #' P <- matrix(c(.1,.5,.4,
 #'               0,.5,.5,
 #'               .9,.1,0), ncol = 3, byrow=TRUE)
-#' z <- sim.mc(1000, P)
+#' z <- rmarkov(1000, P)
 #' stationary.mle(z)
 #'
 #' # input: transition frequency
-#' tab <- table.mc(z)
+#' tab <- transitions(z)
 #' stationary.mle(N = tab)
 #' @references
 #' Trendelkamp-Schroer, B., Wu, H., Paul, F., & Noé, F. (2015). Estimation and uncertainty of reversible Markov models. The Journal of Chemical Physics, 143(17), 174101. \url{https://doi.org/10.1063/1.4934536}
 #' @export
-stationary.mle <- function (z,
-                            N,
-                            labels,
-                            method = "rev",
-                            abstol = 1e-5,
-                            maxit = 1e5){
+stationary.mle <- function (z, N, labels, method = "rev",
+                            abstol = 1e-5, maxit = 1e5){
 
   if (missing(labels))
     labels <- NULL
@@ -45,17 +41,17 @@ stationary.mle <- function (z,
       stop ("The transition matrix 'N' has negative values.")
     N <- as.matrix(N)
   } else {
-    N <- table.mc(z, labels = labels)
+    N <- transitions(z, labels = labels)
   }
 
+  method <- match.arg(method, c("iid", "rev", "eigen"))
   if (method == "iid"){
     pi <- colSums(N)/sum(N)
 
   } else if (method == "rev"){
     M <- ncol(N)
     start <- stationary.mle(N = N, method = "iid")
-    pi <- stationary_mle(start, N,
-                         abstol = abstol, maxit = maxit)
+    pi <- stationary_mle(start, N, abstol = abstol, maxit = maxit)
     # pi.old <- rep(.5,M)
     # N.row <- rowSums(N)
     # cnt <- 0
@@ -68,8 +64,8 @@ stationary.mle <- function (z,
     # }
 
   } else if (method == "eigen"){
-    ev <- eigen(t(N/rowSums(N)))$vectors[,1]
-    pi <- Re(ev/sum(ev))
+    ev <- Re(eigen(t(N/rowSums(N)))$vectors[,1])
+    pi <- ev/sum(ev)
   } else {
     stop ("Method not supported.")
   }

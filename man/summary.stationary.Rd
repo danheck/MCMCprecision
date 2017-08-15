@@ -28,7 +28,7 @@ Effective sample is estimated by fitting a Dirichlet model to the posterior mode
 P <- matrix(c(.1,.5,.4,
               0, .5,.5,
               .9,.1,0), ncol = 3, byrow=TRUE)
-z <- sim.mc(1000, P)
+z <- rmarkov(1000, P)
 samples <- stationary(z, summary = FALSE)
 summary(samples)
 

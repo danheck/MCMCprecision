@@ -13,16 +13,28 @@ sim_mc <- function(n, P, start) {
     .Call(`_MCMCprecision_sim_mc`, n, P, start)
 }
 
-stationaryArma <- function(N, epsilon = 0, sample = 5000L, display_progress = TRUE, digits = 8.) {
-    .Call(`_MCMCprecision_stationaryArma`, N, epsilon, sample, display_progress, digits)
+rdirichletPt <- function(Pt) {
+    .Call(`_MCMCprecision_rdirichletPt`, Pt)
 }
 
-stationaryArmaSparse <- function(N, sample = 5000L, display_progress = TRUE, digits = 8.) {
-    .Call(`_MCMCprecision_stationaryArmaSparse`, N, sample, display_progress, digits)
+getP2 <- function(P, pi) {
+    .Call(`_MCMCprecision_getP2`, P, pi)
 }
 
-stationaryEigen <- function(N, epsilon = 0, sample = 5000L, display_progress = TRUE, digits = 8.) {
-    .Call(`_MCMCprecision_stationaryEigen`, N, epsilon, sample, display_progress, digits)
+postpred <- function(P, pi, N2) {
+    .Call(`_MCMCprecision_postpred`, P, pi, N2)
+}
+
+stationaryArma <- function(N, N2, epsilon = 0, sample = 5000L, progress = TRUE, digits = 8.) {
+    .Call(`_MCMCprecision_stationaryArma`, N, N2, epsilon, sample, progress, digits)
+}
+
+stationaryArmaSparse <- function(N, N2, epsilon = 0, sample = 5000L, progress = TRUE, digits = 8.) {
+    .Call(`_MCMCprecision_stationaryArmaSparse`, N, N2, epsilon, sample, progress, digits)
+}
+
+stationaryEigen <- function(N, epsilon = 0, sample = 5000L, progress = TRUE, digits = 8.) {
+    .Call(`_MCMCprecision_stationaryEigen`, N, epsilon, sample, progress, digits)
 }
 
 stationary_mle <- function(pi, N, abstol = 1e-5, maxit = 1e5L) {

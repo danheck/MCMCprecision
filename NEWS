@@ -1,3 +1,13 @@
+MCMCprecision 0.3.8
+===========
+
+* Code refactoring
+* Renamed functions: table.mc -> transitions; sim.mc -> rmarkov
+* Added posterior predictive checks
+* Added unit tests
+* Fixed bugs for transitions() of multiple-chain sequences and multiple CPUs in stationary()
+
+
 MCMCprecision 0.3.6
 ===========
 

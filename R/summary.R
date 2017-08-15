@@ -13,17 +13,15 @@
 #' P <- matrix(c(.1,.5,.4,
 #'               0, .5,.5,
 #'               .9,.1,0), ncol = 3, byrow=TRUE)
-#' z <- sim.mc(1000, P)
+#' z <- rmarkov(1000, P)
 #' samples <- stationary(z, summary = FALSE)
 #' summary(samples)
 #'
 #' @return a list with estimates for \code{"pp"} = posterior model probabilities, \code{"n.eff"} = effective sample size, and \code{"bf"} = pairwise Bayes factors (optional)
 #' @seealso \code{\link{stationary}}, \code{\link{dirichlet.mle}}
 #' @method summary stationary
-summary.stationary <- function(object,
-                               BF = FALSE,
-                               logBF = FALSE,
-                               ...){
+#' @export
+summary.stationary <- function(object, BF = FALSE, logBF = FALSE, ...){
   samples <- object
   pp <- t(apply(samples, 2, summ.samples))
 

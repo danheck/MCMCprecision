@@ -10,17 +10,13 @@
 #' @details The algorithm is used to estimate the effective sample size for based on samples of posterior model probabilities (see \code{\link{stationary}} and \code{\link{summary.stationary}}).
 #'
 #' @examples
-#' x <- rdirichlet(50, c(8,1,3,9))
+#' x <- rdirichlet(100, c(8,1,3,9))
 #' dirichlet.mle(x)
 #' @seealso \code{\link{rdirichlet}}
 #' @references
 #' Minka, T. (2000). Estimating a Dirichlet distribution. Technical Report.
 #' @export
-dirichlet.mle <- function (x,
-                           const,
-                           maxit = 1e5,
-                           abstol = 1e-4)
-{
+dirichlet.mle <- function (x, const, maxit = 1e5, abstol = .1){
   # adjust for x=0  (because of log(x) = -Inf)
   if (min(x) == 0){
     if (missing(const))
@@ -37,7 +33,7 @@ dirichlet.mle <- function (x,
   xi <- (x.mean - x.squares)/(x.squares - x.mean^2)
   alpha0 <- xi * x.mean
   alpha <- NULL
-  try(alpha <- dirichlet_fp(pmax(.01,  pmin(alpha0, 50)), logx.mean,
+  try(alpha <- dirichlet_fp(pmax(.01, alpha0), logx.mean, # pmin(alpha0, 50)
                         maxit = maxit, abstol = abstol), silent = TRUE)
   # if this fails: random starting values
   if (is.null(alpha) || anyNA(alpha))
