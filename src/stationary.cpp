@@ -75,13 +75,30 @@ arma::cube getP2(arma::mat P, arma::vec pi)
   return (P2);
 }
 
+// Pearson's X^2
 double x2(arma::vec o, arma::vec e)
 {
-  return(accu(pow(o - e, 2) / e));
+  uvec sel = find(o + e != 0);
+  return(accu(pow(o(sel) - e(sel), 2) / e(sel)));
 }
 
+// G2
+// double x2(arma::vec o, arma::vec e)
+// {
+//   return(2 * accu(o % (log(o / e))));
+// }
+
+// Cressie-Read Statistics
+// double x2(arma::vec o, arma::vec e)
+// {
+//   double lambda = 2./3.;
+//   uvec sel = find(o + e != 0);
+//   double s = accu(o(sel) % (pow(o(sel) / e(sel), lambda) - 1));
+//   return(2 * s / (lambda * (lambda + 1)));
+// }
+
 // [[Rcpp::export]]
-arma::vec postpred(arma::mat P, arma::vec pi, arma::cube N2)
+arma::vec postpred(arma::mat P, arma::vec pi, arma::vec N2)
 {
   vec statistic(2);
   statistic.fill(datum::nan);
@@ -90,15 +107,22 @@ arma::vec postpred(arma::mat P, arma::vec pi, arma::cube N2)
     double N = accu(N2);
     vec P2vec = vectorise(getP2(P, pi)); // identical order as in R: c(P2)
     // observed:
-    statistic(0) = x2(vectorise(N2), P2vec * N);
+    statistic(0) = x2(N2, P2vec * N);  // c(N2) = vectorise(N2)
     // posterior predicted:
     ivec N2pred = rmultinom(N, as<NumericVector>(wrap(P2vec)));
     statistic(1) = x2(conv_to<vec>::from(N2pred), P2vec * N);
+    // if (statistic(0) < 1)
+    // {
+    //   Rcout << " (N = " << N << ")" << "stat: " << statistic.t() ;
+    //   mat tmp = join_rows(conv_to<vec>::from(N2pred), join_rows(P2vec * N, N2));
+    //   Rcout << "pred / E / obs = \n" << tmp.rows(0,6) << "\n";
+    //   Rcout << "N2 = " << N2;
+    // }
   }
   return(statistic);
 }
 
-arma::vec postpred(arma::sp_mat P, arma::vec pi, arma::cube N2)
+arma::vec postpred(arma::sp_mat P, arma::vec pi, arma::vec N2)
 {
   mat Pmat = conv_to<mat>::from(P);
   return (postpred(Pmat, pi, N2));
@@ -109,7 +133,7 @@ arma::vec postpred(arma::sp_mat P, arma::vec pi, arma::cube N2)
 // a: prior vector for transition probabilities - Dirichlet(a[1],...,a[M])
 // sample: number of (independent) posterior samples
 // [[Rcpp::export]]
-arma::mat stationaryArma(arma::mat N, arma::cube N2,
+arma::mat stationaryArma(arma::mat N, arma::vec N2,
                          double epsilon = 0, int sample = 5000,
                          bool progress = true, double digits = 8.)
 {
@@ -168,7 +192,7 @@ arma::mat stationaryArma(arma::mat N, arma::cube N2,
 // a: prior for transition probabilities - Dirichlet(a,...,a)
 // sample: number of (independent) posterior samples
 // [[Rcpp::export]]
-arma::mat stationaryArmaSparse(arma::sp_mat N, arma::cube N2, double epsilon = 0,
+arma::mat stationaryArmaSparse(arma::sp_mat N, arma::vec N2, double epsilon = 0,
                                int sample = 5000,
                                bool progress=true, double digits = 8.)
 {

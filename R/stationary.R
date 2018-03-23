@@ -96,10 +96,10 @@ stationary <- function (z, N, labels, sample = 1000, epsilon = "1/M",
     if (ncol(N) != nrow(N) || any(N<0))
       stop ("The transition matrix 'N' has negative values.")
     tab <- as.matrix(N)
-    tab2 <- array(NA, rep(ncol(tab), 3))
+    tab2 <- c(array(NA, rep(ncol(tab), 3)))
   } else {
     tab <- transitions(z, labels=labels)
-    tab2 <- transitions(z, labels = labels, order = 2)
+    tab2 <- c(transitions(z, labels = labels, order = 2))
   }
   if (method == "armas")
     tab <- Matrix(tab, sparse = TRUE)
@@ -131,7 +131,18 @@ stationary <- function (z, N, labels, sample = 1000, epsilon = "1/M",
     mcmc <- mcmc[,1:M]
     postpred <- c("X2.obs" = median(x2[,1], na.rm = TRUE),
                   "X2.pred" = median(x2[,2], na.rm = TRUE),
-                  "p-value" = mean(x2[,1] < x2[,2]))
+                  "p-value" = mean(x2[,1] < x2[,2], na.rm = TRUE))
+    # if(postpred[1] < 1){
+    #   print(postpred)
+    #   print(summary(x2))
+    #   print(head(x2))
+    #   # print(anyNA(x2))
+    #   # try(print(x2[is.na(x2[,1]),]))
+    #   # print(head(mcmc))
+    #   par(mfrow=c(1,1))
+    #   print(head(mcmc[x2[,1]< 1.5,]))
+    #   print(tail(mcmc[x2[,1]< 1.5,]))
+    # }
   }
 
   mcmc[mcmc < 0] <- 0
