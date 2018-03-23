@@ -71,26 +71,26 @@ BEGIN_RCPP
 END_RCPP
 }
 // postpred
-arma::vec postpred(arma::mat P, arma::vec pi, arma::cube N2);
+arma::vec postpred(arma::mat P, arma::vec pi, arma::vec N2);
 RcppExport SEXP _MCMCprecision_postpred(SEXP PSEXP, SEXP piSEXP, SEXP N2SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat >::type P(PSEXP);
     Rcpp::traits::input_parameter< arma::vec >::type pi(piSEXP);
-    Rcpp::traits::input_parameter< arma::cube >::type N2(N2SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type N2(N2SEXP);
     rcpp_result_gen = Rcpp::wrap(postpred(P, pi, N2));
     return rcpp_result_gen;
 END_RCPP
 }
 // stationaryArma
-arma::mat stationaryArma(arma::mat N, arma::cube N2, double epsilon, int sample, bool progress, double digits);
+arma::mat stationaryArma(arma::mat N, arma::vec N2, double epsilon, int sample, bool progress, double digits);
 RcppExport SEXP _MCMCprecision_stationaryArma(SEXP NSEXP, SEXP N2SEXP, SEXP epsilonSEXP, SEXP sampleSEXP, SEXP progressSEXP, SEXP digitsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat >::type N(NSEXP);
-    Rcpp::traits::input_parameter< arma::cube >::type N2(N2SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type N2(N2SEXP);
     Rcpp::traits::input_parameter< double >::type epsilon(epsilonSEXP);
     Rcpp::traits::input_parameter< int >::type sample(sampleSEXP);
     Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
@@ -100,13 +100,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // stationaryArmaSparse
-arma::mat stationaryArmaSparse(arma::sp_mat N, arma::cube N2, double epsilon, int sample, bool progress, double digits);
+arma::mat stationaryArmaSparse(arma::sp_mat N, arma::vec N2, double epsilon, int sample, bool progress, double digits);
 RcppExport SEXP _MCMCprecision_stationaryArmaSparse(SEXP NSEXP, SEXP N2SEXP, SEXP epsilonSEXP, SEXP sampleSEXP, SEXP progressSEXP, SEXP digitsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::sp_mat >::type N(NSEXP);
-    Rcpp::traits::input_parameter< arma::cube >::type N2(N2SEXP);
+    Rcpp::traits::input_parameter< arma::vec >::type N2(N2SEXP);
     Rcpp::traits::input_parameter< double >::type epsilon(epsilonSEXP);
     Rcpp::traits::input_parameter< int >::type sample(sampleSEXP);
     Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
