@@ -32,7 +32,6 @@
 #'     \code{"bf"} = pairwise Bayes factors (optional)
 #'
 #' @seealso \code{\link{stationary}}, \code{\link{fit_dirichlet}}
-#' @method summary stationary
 #' @export
 summary.stationary <- function(object, BF = FALSE, logBF = FALSE, ...){
   samples <- object
