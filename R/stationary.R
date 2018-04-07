@@ -64,7 +64,7 @@
 #' posterior probabilities (i.e., the fixed but unknown stationary distribution of \code{z}).
 #' If \code{summary=FALSE}, posterior samples for \eqn{pi} are returned.
 #'
-#' @seealso \code{\link{best.k}}, \code{\link{summary.stationary}}
+#' @seealso \code{\link{best_models}}, \code{\link{summary.stationary}}
 #'
 #' @examples
 #' # data-generating transition matrix
@@ -81,7 +81,7 @@
 #' samples <- stationary(N = N, summary = FALSE)
 #'
 #' # summaries:
-#' best.k(samples, k = 3)
+#' best_models(samples, k = 3)
 #' summary(samples)
 #' @export
 stationary <- function (z, N, labels, sample = 1000, epsilon = "1/M",

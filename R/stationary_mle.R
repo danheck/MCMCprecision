@@ -23,15 +23,15 @@
 #'               0,.5,.5,
 #'               .9,.1,0), ncol = 3, byrow=TRUE)
 #' z <- rmarkov(1000, P)
-#' stationary.mle(z)
+#' stationary_mle(z)
 #'
 #' # input: transition frequency
 #' tab <- transitions(z)
-#' stationary.mle(N = tab)
+#' stationary_mle(N = tab)
 #' @references
 #' Trendelkamp-Schroer, B., Wu, H., Paul, F., & Noé, F. (2015). Estimation and uncertainty of reversible Markov models. The Journal of Chemical Physics, 143(17), 174101. \url{https://doi.org/10.1063/1.4934536}
 #' @export
-stationary.mle <- function (z, N, labels, method = "rev",
+stationary_mle <- function (z, N, labels, method = "rev",
                             abstol = 1e-5, maxit = 1e5){
 
   if (missing(labels))
@@ -50,7 +50,7 @@ stationary.mle <- function (z, N, labels, method = "rev",
 
   } else if (method == "rev"){
     M <- ncol(N)
-    start <- stationary.mle(N = N, method = "iid")
+    start <- stationary_mle(N = N, method = "iid")
     pi <- stationary_mle(start, N, abstol = abstol, maxit = maxit)
     # pi.old <- rep(.5,M)
     # N.row <- rowSums(N)

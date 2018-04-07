@@ -2,7 +2,7 @@ MCMCprecision 0.3.8
 ===========
 
 * Code refactoring
-* Renamed functions: table.mc -> transitions; sim.mc -> rmarkov; dirichlet.mle -> fit_dirichlet
+* Renamed functions: table.mc -> transitions; sim.mc -> rmarkov; dirichlet.mle -> fit_dirichlet ; stationary.mle -> stationary_mle ; best.k -> best_models
 * Added posterior predictive checks
 * Added unit tests
 * Fixed bugs for transitions() of multiple-chain sequences and multiple CPUs in stationary()

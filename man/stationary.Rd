@@ -96,9 +96,9 @@ N <- transitions(z)
 samples <- stationary(N = N, summary = FALSE)
 
 # summaries:
-best.k(samples, k = 3)
+best_models(samples, k = 3)
 summary(samples)
 }
 \seealso{
-\code{\link{best.k}}, \code{\link{summary.stationary}}
+\code{\link{best_models}}, \code{\link{summary.stationary}}
 }

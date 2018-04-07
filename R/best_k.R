@@ -13,9 +13,9 @@
 #' idx <- apply(mult, 2, which.max)
 #' z <- letters[idx]
 #' stat <- stationary(z, summary = FALSE)
-#' best.k(stat, 3)
+#' best_models(stat, 3)
 #' @export
-best.k <- function (samples,
+best_models <- function (samples,
                     k,
                     ties.method = "min"){
 
@@ -54,8 +54,5 @@ best.k <- function (samples,
                 "Rank==#" = rank.identical,
                 in.best)
   colnames(summ)[8] <- paste0("Rank<=",k)
-
-  # results <- list("best.k" = summ,
-  #                 "rank.best.k.stable" = sum(rank.stable)/R)
-  return (summ)
+  summ
 }
