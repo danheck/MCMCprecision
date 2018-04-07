@@ -130,9 +130,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// stationary_mle
-NumericVector stationary_mle(NumericVector pi, NumericMatrix N, double abstol, int maxit);
-RcppExport SEXP _MCMCprecision_stationary_mle(SEXP piSEXP, SEXP NSEXP, SEXP abstolSEXP, SEXP maxitSEXP) {
+// stationary_reversible
+NumericVector stationary_reversible(NumericVector pi, NumericMatrix N, double abstol, int maxit);
+RcppExport SEXP _MCMCprecision_stationary_reversible(SEXP piSEXP, SEXP NSEXP, SEXP abstolSEXP, SEXP maxitSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -140,7 +140,7 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericMatrix >::type N(NSEXP);
     Rcpp::traits::input_parameter< double >::type abstol(abstolSEXP);
     Rcpp::traits::input_parameter< int >::type maxit(maxitSEXP);
-    rcpp_result_gen = Rcpp::wrap(stationary_mle(pi, N, abstol, maxit));
+    rcpp_result_gen = Rcpp::wrap(stationary_reversible(pi, N, abstol, maxit));
     return rcpp_result_gen;
 END_RCPP
 }

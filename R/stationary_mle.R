@@ -51,7 +51,7 @@ stationary_mle <- function (z, N, labels, method = "rev",
   } else if (method == "rev"){
     M <- ncol(N)
     start <- stationary_mle(N = N, method = "iid")
-    pi <- stationary_mle(start, N, abstol = abstol, maxit = maxit)
+    pi <- stationary_reversible(start, N, abstol = abstol, maxit = maxit)
     # pi.old <- rep(.5,M)
     # N.row <- rowSums(N)
     # cnt <- 0

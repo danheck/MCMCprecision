@@ -37,7 +37,7 @@ stationaryEigen <- function(N, epsilon = 0, sample = 5000L, progress = TRUE, dig
     .Call(`_MCMCprecision_stationaryEigen`, N, epsilon, sample, progress, digits)
 }
 
-stationary_mle <- function(pi, N, abstol = 1e-5, maxit = 1e5L) {
-    .Call(`_MCMCprecision_stationary_mle`, pi, N, abstol, maxit)
+stationary_reversible <- function(pi, N, abstol = 1e-5, maxit = 1e5L) {
+    .Call(`_MCMCprecision_stationary_reversible`, pi, N, abstol, maxit)
 }
 

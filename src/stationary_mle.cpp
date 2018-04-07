@@ -9,10 +9,8 @@ using namespace Rcpp;
 // The Journal of Chemical Physics, 143(17), 174101.
 // https://doi.org/10.1063/1.4934536
 // [[Rcpp::export]]
-NumericVector stationary_mle (NumericVector pi,
-                              NumericMatrix N,
-                              double abstol = 1e-5,
-                              int maxit = 1e5)
+NumericVector stationary_reversible (NumericVector pi, NumericMatrix N,
+                                     double abstol = 1e-5, int maxit = 1e5)
 {
   NumericVector pi0(clone(pi));
   int M = N.cols();
