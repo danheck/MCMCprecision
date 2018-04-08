@@ -15,8 +15,8 @@ extern SEXP _MCMCprecision_postpred(SEXP, SEXP, SEXP);
 extern SEXP _MCMCprecision_rdirichletPt(SEXP);
 extern SEXP _MCMCprecision_sim_mc(SEXP, SEXP, SEXP);
 extern SEXP _MCMCprecision_stationary_reversible(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _MCMCprecision_stationaryArma(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _MCMCprecision_stationaryArmaSparse(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _MCMCprecision_stationaryArma(SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _MCMCprecision_stationaryArmaSparse(SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _MCMCprecision_stationaryEigen(SEXP, SEXP, SEXP, SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
@@ -27,8 +27,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_MCMCprecision_rdirichletPt",          (DL_FUNC) &_MCMCprecision_rdirichletPt,          1},
     {"_MCMCprecision_sim_mc",                (DL_FUNC) &_MCMCprecision_sim_mc,                3},
     {"_MCMCprecision_stationary_reversible", (DL_FUNC) &_MCMCprecision_stationary_reversible, 4},
-    {"_MCMCprecision_stationaryArma",        (DL_FUNC) &_MCMCprecision_stationaryArma,        6},
-    {"_MCMCprecision_stationaryArmaSparse",  (DL_FUNC) &_MCMCprecision_stationaryArmaSparse,  6},
+    {"_MCMCprecision_stationaryArma",        (DL_FUNC) &_MCMCprecision_stationaryArma,        5},
+    {"_MCMCprecision_stationaryArmaSparse",  (DL_FUNC) &_MCMCprecision_stationaryArmaSparse,  5},
     {"_MCMCprecision_stationaryEigen",       (DL_FUNC) &_MCMCprecision_stationaryEigen,       5},
     {NULL, NULL, 0}
 };

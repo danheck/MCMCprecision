@@ -14,8 +14,7 @@ or a matrix with one MCMC chain per column).}
 
 \item{N}{the observed \code{\link{transitions}} matrix (if supplied, \code{z} is ignored).
 A quadratic matrix with sampled transition frequencies
-(\code{N[i,j]} = number of switches from \code{z[t]=i} to \code{z[t+1]=j}).
-Note: by providing \code{N}, it is not possible to perform posterior predictive checks.}
+(\code{N[i,j]} = number of switches from \code{z[t]=i} to \code{z[t+1]=j}).}
 
 \item{labels}{optional: vector of labels for complete set of models
 (e.g., models not sampled in the chain \code{z}). If \code{epsilon=0},

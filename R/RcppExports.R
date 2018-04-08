@@ -25,12 +25,12 @@ postpred <- function(P, pi, N2) {
     .Call(`_MCMCprecision_postpred`, P, pi, N2)
 }
 
-stationaryArma <- function(N, N2, epsilon = 0, sample = 5000L, progress = TRUE, digits = 8.) {
-    .Call(`_MCMCprecision_stationaryArma`, N, N2, epsilon, sample, progress, digits)
+stationaryArma <- function(N, epsilon = 0, sample = 5000L, progress = TRUE, digits = 8.) {
+    .Call(`_MCMCprecision_stationaryArma`, N, epsilon, sample, progress, digits)
 }
 
-stationaryArmaSparse <- function(N, N2, epsilon = 0, sample = 5000L, progress = TRUE, digits = 8.) {
-    .Call(`_MCMCprecision_stationaryArmaSparse`, N, N2, epsilon, sample, progress, digits)
+stationaryArmaSparse <- function(N, epsilon = 0, sample = 5000L, progress = TRUE, digits = 8.) {
+    .Call(`_MCMCprecision_stationaryArmaSparse`, N, epsilon, sample, progress, digits)
 }
 
 stationaryEigen <- function(N, epsilon = 0, sample = 5000L, progress = TRUE, digits = 8.) {

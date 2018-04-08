@@ -84,34 +84,32 @@ BEGIN_RCPP
 END_RCPP
 }
 // stationaryArma
-arma::mat stationaryArma(arma::mat N, arma::vec N2, double epsilon, int sample, bool progress, double digits);
-RcppExport SEXP _MCMCprecision_stationaryArma(SEXP NSEXP, SEXP N2SEXP, SEXP epsilonSEXP, SEXP sampleSEXP, SEXP progressSEXP, SEXP digitsSEXP) {
+arma::mat stationaryArma(arma::mat N, double epsilon, int sample, bool progress, double digits);
+RcppExport SEXP _MCMCprecision_stationaryArma(SEXP NSEXP, SEXP epsilonSEXP, SEXP sampleSEXP, SEXP progressSEXP, SEXP digitsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat >::type N(NSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type N2(N2SEXP);
     Rcpp::traits::input_parameter< double >::type epsilon(epsilonSEXP);
     Rcpp::traits::input_parameter< int >::type sample(sampleSEXP);
     Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
     Rcpp::traits::input_parameter< double >::type digits(digitsSEXP);
-    rcpp_result_gen = Rcpp::wrap(stationaryArma(N, N2, epsilon, sample, progress, digits));
+    rcpp_result_gen = Rcpp::wrap(stationaryArma(N, epsilon, sample, progress, digits));
     return rcpp_result_gen;
 END_RCPP
 }
 // stationaryArmaSparse
-arma::mat stationaryArmaSparse(arma::sp_mat N, arma::vec N2, double epsilon, int sample, bool progress, double digits);
-RcppExport SEXP _MCMCprecision_stationaryArmaSparse(SEXP NSEXP, SEXP N2SEXP, SEXP epsilonSEXP, SEXP sampleSEXP, SEXP progressSEXP, SEXP digitsSEXP) {
+arma::mat stationaryArmaSparse(arma::sp_mat N, double epsilon, int sample, bool progress, double digits);
+RcppExport SEXP _MCMCprecision_stationaryArmaSparse(SEXP NSEXP, SEXP epsilonSEXP, SEXP sampleSEXP, SEXP progressSEXP, SEXP digitsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::sp_mat >::type N(NSEXP);
-    Rcpp::traits::input_parameter< arma::vec >::type N2(N2SEXP);
     Rcpp::traits::input_parameter< double >::type epsilon(epsilonSEXP);
     Rcpp::traits::input_parameter< int >::type sample(sampleSEXP);
     Rcpp::traits::input_parameter< bool >::type progress(progressSEXP);
     Rcpp::traits::input_parameter< double >::type digits(digitsSEXP);
-    rcpp_result_gen = Rcpp::wrap(stationaryArmaSparse(N, N2, epsilon, sample, progress, digits));
+    rcpp_result_gen = Rcpp::wrap(stationaryArmaSparse(N, epsilon, sample, progress, digits));
     return rcpp_result_gen;
 END_RCPP
 }

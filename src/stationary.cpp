@@ -83,19 +83,19 @@ double x2(arma::vec o, arma::vec e)
 }
 
 // G2
-// double x2(arma::vec o, arma::vec e)
-// {
-//   return(2 * accu(o % (log(o / e))));
-// }
+double g2(arma::vec o, arma::vec e)
+{
+  return(2 * accu(o % (log(o / e))));
+}
 
 // Cressie-Read Statistics
-// double x2(arma::vec o, arma::vec e)
-// {
-//   double lambda = 2./3.;
-//   uvec sel = find(o + e != 0);
-//   double s = accu(o(sel) % (pow(o(sel) / e(sel), lambda) - 1));
-//   return(2 * s / (lambda * (lambda + 1)));
-// }
+double cr(arma::vec o, arma::vec e)
+{
+  double lambda = 2./3.;
+  uvec sel = find(o + e != 0);
+  double s = accu(o(sel) % (pow(o(sel) / e(sel), lambda) - 1));
+  return(2 * s / (lambda * (lambda + 1)));
+}
 
 // [[Rcpp::export]]
 arma::vec postpred(arma::mat P, arma::vec pi, arma::vec N2)
@@ -133,17 +133,17 @@ arma::vec postpred(arma::sp_mat P, arma::vec pi, arma::vec N2)
 // a: prior vector for transition probabilities - Dirichlet(a[1],...,a[M])
 // sample: number of (independent) posterior samples
 // [[Rcpp::export]]
-arma::mat stationaryArma(arma::mat N, arma::vec N2,
+arma::mat stationaryArma(arma::mat N, // postpred: arma::vec N2,
                          double epsilon = 0, int sample = 5000,
                          bool progress = true, double digits = 8.)
 {
   int M = N.n_cols;
   int steps = round(1000/M);
-  mat mcmc(M, sample), x2(2, sample);
+  mat mcmc(M, sample);
   mcmc.fill(datum::nan);
-  x2.fill(datum::nan);
   mat freqt = N.t() + epsilon;
   Progress p(sample, progress);
+  // postpred: mat x2(2, sample); x2.fill(datum::nan);
 
   uword maxIdx;
   cx_vec eigval;
@@ -172,8 +172,7 @@ arma::mat stationaryArma(arma::mat N, arma::vec N2,
           ev = real(eigvec.col(maxIdx));
           pi = ev / accu(ev);
           mcmc.col(i) = pi;
-          // posterior predictive check:
-          x2.col(i) = postpred(Pt.t(), pi, N2);
+          // posterior predictive check: x2.col(i) = postpred(Pt.t(), pi, N2);
         }
       }
       catch(...)
@@ -183,7 +182,7 @@ arma::mat stationaryArma(arma::mat N, arma::vec N2,
       }
     }
   }
-  return join_vert(mcmc, x2).t();
+  return mcmc.t();  // postpred: join_vert(mcmc, x2).t();
 }
 
 
@@ -192,14 +191,15 @@ arma::mat stationaryArma(arma::mat N, arma::vec N2,
 // a: prior for transition probabilities - Dirichlet(a,...,a)
 // sample: number of (independent) posterior samples
 // [[Rcpp::export]]
-arma::mat stationaryArmaSparse(arma::sp_mat N, arma::vec N2, double epsilon = 0,
-                               int sample = 5000,
+arma::mat stationaryArmaSparse(arma::sp_mat N,  // postpred: arma::vec N2,
+                               double epsilon = 0, int sample = 5000,
                                bool progress=true, double digits = 8.)
 {
   int M = N.n_cols;
-  mat mcmc(M, sample), x2(2, sample);
+  mat mcmc(M, sample);
   mcmc.fill(datum::nan);
   sp_mat freqt = N.t();
+  // postpred: x2(2, sample);
 
   int steps = round(1000/M);
   Progress p(sample, progress);
@@ -229,8 +229,7 @@ arma::mat stationaryArmaSparse(arma::sp_mat N, arma::vec N2, double epsilon = 0,
           pi = ev / accu(ev);
           mcmc.col(i) = pi;
         }
-        // posterior predictive check
-        x2.col(i) = postpred(Pt.t(), pi, N2);
+        // postpred: x2.col(i) = postpred(Pt.t(), pi, N2);
       }
       catch(...)
       {
@@ -239,7 +238,7 @@ arma::mat stationaryArmaSparse(arma::sp_mat N, arma::vec N2, double epsilon = 0,
       }
     }
   }
-  return join_vert(mcmc, x2).t();
+  return mcmc.t();  // postpred: join_vert(mcmc, x2).t();
 }
 
 

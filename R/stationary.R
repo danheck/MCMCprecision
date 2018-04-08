@@ -11,11 +11,9 @@
 #' @param N the observed \code{\link{transitions}} matrix (if supplied, \code{z} is ignored).
 #'     A quadratic matrix with sampled transition frequencies
 #'     (\code{N[i,j]} = number of switches from \code{z[t]=i} to \code{z[t+1]=j}).
-#'     Note: by providing \code{N}, it is not possible to perform posterior predictive checks.
 #' @param labels optional: vector of labels for complete set of models
 #'     (e.g., models not sampled in the chain \code{z}). If \code{epsilon=0},
 #'     this does not affect inferences due to the improper Dirichlet(0,..,0) prior.
-#'
 #' @param sample number of posterior samples to be drawn for the stationary distribution \eqn{\pi}.
 #' @param epsilon prior parameter for the rows of the estimated transition matrix \eqn{P}:
 #'     \eqn{P[i,]} ~ Dirichlet\eqn{(\epsilon, ..., \epsilon)}.
@@ -31,7 +29,6 @@
 #'     Will only speed up computations for large numbers of models
 #'     (i.e., for large transition matrices).
 #' @param progress whether to show a progress bar (not functional for \code{cpu>1})
-#'
 #' @param method how to compute eigenvectors:
 #' \itemize{
 #'   \item \code{"arma"} (default): Uses \code{RcppArmadillo::eig_gen}.
@@ -96,10 +93,10 @@ stationary <- function (z, N, labels, sample = 1000, epsilon = "1/M",
     if (ncol(N) != nrow(N) || any(N<0))
       stop ("The transition matrix 'N' has negative values.")
     tab <- as.matrix(N)
-    tab2 <- c(array(NA, rep(ncol(tab), 3)))
+    # postpred: tab2 <- c(array(NA, rep(ncol(tab), 3)))
   } else {
     tab <- transitions(z, labels=labels)
-    tab2 <- c(transitions(z, labels = labels, order = 2))
+    # postpred: tab2 <- c(transitions(z, labels = labels, order = 2))
   }
   if (method == "armas")
     tab <- Matrix(tab, sparse = TRUE)
@@ -111,39 +108,29 @@ stationary <- function (z, N, labels, sample = 1000, epsilon = "1/M",
     stop ("'epsilon' must be zero or positive.")
   }
 
-  x2 <- NULL
   labels <- rownames(tab)
   if (cpu == 1){
-    mcmc <- stationary_samples(tab, tab2, sample, epsilon, method, digits, progress)
+    mcmc <- stationary_samples(tab, sample, epsilon, method, digits, progress)
   } else {
     cl <- makeCluster(cpu)
     sample.cpu <- ceiling(sample/cpu)
     mcmc <- do.call("rbind",
                     clusterCall(cl, stationary_samples, method = method,
-                                tab = tab, tab2 = tab2, sample = sample.cpu,
+                                tab = tab, sample = sample.cpu,
                                 epsilon = epsilon, digits = digits, progress = FALSE))
     stopCluster(cl)
   }
 
-  # posterior predictive checks
-  if (ncol(mcmc) > M){
-    x2 <- mcmc[,M + 1:2]
-    mcmc <- mcmc[,1:M]
-    postpred <- c("X2.obs" = median(x2[,1], na.rm = TRUE),
-                  "X2.pred" = median(x2[,2], na.rm = TRUE),
-                  "p-value" = mean(x2[,1] < x2[,2], na.rm = TRUE))
-    # if(postpred[1] < 1){
-    #   print(postpred)
-    #   print(summary(x2))
-    #   print(head(x2))
-    #   # print(anyNA(x2))
-    #   # try(print(x2[is.na(x2[,1]),]))
-    #   # print(head(mcmc))
-    #   par(mfrow=c(1,1))
-    #   print(head(mcmc[x2[,1]< 1.5,]))
-    #   print(tail(mcmc[x2[,1]< 1.5,]))
-    # }
-  }
+  # # posterior predictive checks (only with stationaryArma)
+  # # (requires the raw sequence z to compute a second-order transition matrix)
+  # if (ncol(mcmc) > M){
+  #   x2 <- mcmc[,M + 1:2]
+  #   mcmc <- mcmc[,1:M]
+  #   postpred <- c("X2.obs" = median(x2[,1], na.rm = TRUE),
+  #                 "X2.pred" = median(x2[,2], na.rm = TRUE),
+  #                 "p-value" = mean(x2[,1] < x2[,2], na.rm = TRUE))
+  # }
+  # attr(mcmc, "postpred") <- postpred
 
   mcmc[mcmc < 0] <- 0
   if (anyNA(mcmc))
@@ -162,28 +149,25 @@ stationary <- function (z, N, labels, sample = 1000, epsilon = "1/M",
   class(mcmc) <- c("stationary", "matrix")
   attr(mcmc, "epsilon") <- epsilon
   attr(mcmc, "method") <- method
-  attr(mcmc, "postpred") <- postpred
 
   if (summary){
     mcmc <- summary.stationary(mcmc)
     if (method == "iid")
       mcmc$n.eff <- sum(tab) + epsilon*M
-    if (!is.null(x2))
-      mcmc$postpred <- postpred
   }
-  return (mcmc)
+  mcmc
 }
 
 ## get samples
-stationary_samples <- function(tab, tab2, sample, epsilon, method, digits, progress){
+stationary_samples <- function(tab, sample, epsilon, method, digits, progress){
   if (method == "arma"){
-    mcmc <- stationaryArma(tab, tab2, sample = sample, epsilon = epsilon,
+    mcmc <- stationaryArma(tab, sample = sample, epsilon = epsilon,
                            digits = digits, progress = progress)
 
   } else if (method == "armas") {
     if (epsilon != 0)
       stop ("'epsilon=0' required for method='armas' (sparse matrices)")
-    mcmc <- stationaryArmaSparse(tab, tab2, sample = sample,
+    mcmc <- stationaryArmaSparse(tab, sample = sample,
                                  digits = digits, progress = progress)
 
   } else if (method == "iid"){
@@ -195,8 +179,7 @@ stationary_samples <- function(tab, tab2, sample, epsilon, method, digits, progr
       prog <- txtProgressBar(0, sample, style=3, width=50)
     for (i in 1:sample){
       if (progress) setTxtProgressBar(prog, i)
-      mcmc[i,] <- posterior.sample(1, tab=tab, epsilon=epsilon,
-                                   digits = digits)
+      mcmc[i,] <- posterior.sample(1, tab=tab, epsilon=epsilon, digits = digits)
     }
     if (progress) close(prog)
 

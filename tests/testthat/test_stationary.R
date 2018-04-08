@@ -17,7 +17,6 @@ test_that("'stationary' works", {
   expect_equal(est, pi, tol = .01)
   se <- s1$pp[,"SD"]
   expect_true(all(pi < est + 3*se, pi > est - 3*se))
-  expect_true(s1$postpred["p-value"] > .05)
 
   expect_silent(s2 <- stationary(z, method = "base", progress = FALSE))
   expect_equal(s1$pp, s2$pp, tol = .01)
