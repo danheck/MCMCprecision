@@ -1,0 +1,13 @@
+bibentry(bibtype = "Article",
+  title = "{Quantifying Uncertainty in Transdimensional {Markov} Chain {Monte Carlo} Using Discrete {Markov} Models}",
+  author = c(person(c("Daniel", "W."), "Heck",
+                    email = "heck@uni-mannheim.de"),
+             person("Antony", "Overstall"),
+             person(c("Quentin", "F"), "Gronau"),
+             person("Eric-Jan", "Wagenmakers")),
+  year = "2018",
+  journal = "Statistics & Computing",
+  doi = "10.1007/s11222-018-9828-0",
+
+  header= "To cite MCMCprecision in publications use:"
+)

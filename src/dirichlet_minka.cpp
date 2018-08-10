@@ -34,7 +34,7 @@ NumericVector dirichlet_fp(NumericVector alpha,
   while ((diff > abstol) && (cnt < maxit)) {
     alpha0 = alpha;
     // Fixpoint iteration:
-    alpha = inv_digamma(R::digamma(sum(alpha)) + logx_mean);
+    alpha = inv_digamma(R::digamma(sum(alpha0)) + logx_mean);
 
     cnt += 1;
     // alpha[alpha < 0] = min;

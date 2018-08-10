@@ -16,11 +16,15 @@ variable selection, and for discrete parameters in MCMC output in general.
 \details{
 The main function to assess the estimation uncertainty of discrete MCMC output is
 is \code{\link{stationary}}.
+
+The method is explained in detail in Heck et al. (2018, Statistics & Computing),
+available in the package by calling: \code{vignette("MCMCprecision")}
 }
 \references{
 Heck, D. W., Overstall, A. M., Gronau, Q. F., & Wagenmakers, E.-J. (2017).
 Quantifying uncertainty in transdimensional Markov chain Monte Carlo
-using discrete Markov models. \url{https://arxiv.org/abs/1703.10364}
+using discrete Markov models. Statistics & Computing.
+\url{http://dx.doi.org/10.1007/s11222-018-9828-0}
 }
 \seealso{
 Useful links:
