@@ -1,3 +1,9 @@
+MCMCprecision 0.4.0
+===========
+
+* Bug fixes for issues concerning class(matrix(...)) in R 4.0.0
+
+
 MCMCprecision 0.3.9
 ===========
 

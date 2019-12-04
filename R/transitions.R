@@ -17,7 +17,7 @@
 #'
 #' @export
 transitions <- function (z, labels, order = 1){
-  if (class(z) %in% c("list", "mcmc.list")){
+  if (inherits(z, "list") || inherits(z, "mcmc.list")){
     z <- do.call("cbind",z)
   }
   if (missing(labels) || is.null(labels)){
