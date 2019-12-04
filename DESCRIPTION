@@ -1,11 +1,14 @@
 Package: MCMCprecision
 Type: Package
 Title: Precision of Discrete Parameters in Transdimensional MCMC
-Version: 0.3.9
-Date: 2018-08-10
-Authors@R: c(person("Daniel W.","Heck", email="heck@uni-mannheim.de",role=c("aut","cre")))
-Author: Daniel W. Heck [aut, cre]
-Maintainer: Daniel W. Heck <heck@uni-mannheim.de>
+Version: 0.4.0
+Date: 2019-12-04
+Authors@R: c(person("Daniel W.","Heck", 
+                    email = "dheck@uni-marburg.de",
+                    role = c("aut","cre"), 
+                    comment = c(ORCID = "0000-0002-6302-9252")))
+Author: Daniel W. Heck [aut, cre] (<https://orcid.org/0000-0002-6302-9252>)
+Maintainer: Daniel W. Heck <dheck@uni-marburg.de>
 Description: Estimates the precision of transdimensional Markov chain Monte Carlo 
     (MCMC) output, which is often used for Bayesian analysis of models with different 
     dimensionality (e.g., model selection). Transdimensional MCMC (e.g., reversible 
@@ -13,11 +16,11 @@ Description: Estimates the precision of transdimensional Markov chain Monte Carl
     the posterior model probabilities. If only few switches occur between the models, 
     precision may be low and assessment based on the assumption of independent 
     samples misleading. Based on the observed transition matrix of the indicator 
-    variable, the method of Heck, Overstall, Gronau, & Wagenmakers (2018, 
-    Statistics & Computing) <doi:10.1007/s11222-018-9828-0> draws posterior samples 
-    of the stationary distribution to (a) assess the uncertainty in the estimated 
-    posterior model probabilities and (b) estimate the effective sample size of 
-    the MCMC output.
+    variable, the method of Heck, Overstall, Gronau, & Wagenmakers (2019, 
+    Statistics & Computing, 29, 631-643) <doi:10.1007/s11222-018-9828-0> draws 
+    posterior samples of the stationary distribution to (a) assess the uncertainty 
+    in the estimated posterior model probabilities and (b) estimate the effective 
+    sample size of the MCMC output.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
@@ -31,13 +34,13 @@ Imports:
     Matrix,
     combinat
 Suggests:
-	  testthat, 
+	testthat, 
     R.rsp
 LinkingTo: 
     Rcpp,
     RcppArmadillo,
     RcppProgress,
     RcppEigen
-RoxygenNote: 6.1.0
+RoxygenNote: 7.0.2
 URL: https://github.com/danheck/MCMCprecision
 VignetteBuilder: R.rsp

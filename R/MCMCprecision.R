@@ -10,7 +10,7 @@
 #' The main function to assess the estimation uncertainty of discrete MCMC output is
 #' is \code{\link{stationary}}.
 #'
-#' The method is explained in detail in Heck et al. (2018, Statistics & Computing),
+#' The method is explained in detail in Heck et al. (2019, Statistics & Computing),
 #' available in the package by calling: \code{vignette("MCMCprecision")}
 #'
 #' @author Daniel W. Heck
@@ -25,9 +25,9 @@
 #' @useDynLib "MCMCprecision", .registration=TRUE
 #'
 #' @references
-#' Heck, D. W., Overstall, A. M., Gronau, Q. F., & Wagenmakers, E.-J. (2017).
+#' Heck, D. W., Overstall, A. M., Gronau, Q. F., & Wagenmakers, E.-J. (2019).
 #' Quantifying uncertainty in transdimensional Markov chain Monte Carlo
-#' using discrete Markov models. Statistics & Computing.
-#' \url{http://dx.doi.org/10.1007/s11222-018-9828-0}
+#' using discrete Markov models. Statistics & Computing, 29, 631–643.
+#' \url{https://dx.doi.org/10.1007/s11222-018-9828-0}
 #'
 "_PACKAGE"
