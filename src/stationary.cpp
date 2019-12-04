@@ -167,7 +167,7 @@ arma::mat stationaryArma(arma::mat N, // postpred: arma::vec N2,
         eig_gen(eigval, eigvec, Pt);
         maxIdx = index_max(real(eigval));
         // Rcout << "\n eigval: " << real(eigval.t()) << " maxIdx = " << maxIdx;
-        if( abs(real(eigval(maxIdx)) - 1) < pow(10,-digits))
+        if( fabs(real(eigval(maxIdx)) - 1) < pow(10,-digits)) // fabs=abs(real)
         {
           ev = real(eigvec.col(maxIdx));
           pi = ev / accu(ev);
@@ -223,7 +223,7 @@ arma::mat stationaryArmaSparse(arma::sp_mat N,  // postpred: arma::vec N2,
       try
       {
         eigs_gen(eigval, eigvec, Pt, 1, "lr");
-        if( abs(real(eigval(0)) - 1.) < pow(10,-digits))
+        if( fabs(real(eigval(0)) - 1.) < pow(10,-digits))
         {
           ev = real(eigvec.col(0));
           pi = ev / accu(ev);

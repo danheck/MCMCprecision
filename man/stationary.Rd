@@ -4,8 +4,18 @@
 \alias{stationary}
 \title{Precision of stationary distribution for discrete MCMC variables}
 \usage{
-stationary(z, N, labels, sample = 1000, epsilon = "1/M", cpu = 1,
-  method = "arma", digits = 6, progress = TRUE, summary = TRUE)
+stationary(
+  z,
+  N,
+  labels,
+  sample = 1000,
+  epsilon = "1/M",
+  cpu = 1,
+  method = "arma",
+  digits = 6,
+  progress = TRUE,
+  summary = TRUE
+)
 }
 \arguments{
 \item{z}{MCMC output for the discrete indicator variable with numerical,
