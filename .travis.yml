@@ -1,6 +1,17 @@
 language: r
+latex: true
 sudo: false
+warnings_are_errors: TRUE
 r:
   - devel
+  - release
+
 repos:
   CRAN: https://cloud.r-project.org
+
+env:
+  - _R_CHECK_FORCE_SUGGESTS_=true
+    _R_CHECK_CRAN_INCOMING_=true
+
+cache:
+  - packages
