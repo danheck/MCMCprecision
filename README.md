@@ -1,8 +1,10 @@
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/MCMCprecision)](https://cran.r-project.org/package=MCMCprecision)
+[![Workflow](https://github.com/danheck/MCMCprecision/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/danheck/MCMCprecision/actions/workflows/check-standard.yaml)
 [![Licence](https://img.shields.io/badge/licence-GPL--2-green.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
-[![DOI](https://zenodo.org/badge/79934595.svg)](https://zenodo.org/badge/latestdoi/79934595)
 [![monthly downloads](https://cranlogs.r-pkg.org/badges/RRreg)](https://cranlogs.r-pkg.org/badges/RRreg)
 [![total downloads](https://cranlogs.r-pkg.org/badges/grand-total/MCMCprecision)](https://cranlogs.r-pkg.org/badges/grand-total/MCMCprecision)
+
+<!--[![DOI](https://zenodo.org/badge/79934595.svg)](https://zenodo.org/badge/latestdoi/79934595)-->
 
 
 # MCMCprecision: Precision for discrete parameters in transdimensional MCMC
