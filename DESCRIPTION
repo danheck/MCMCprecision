@@ -1,10 +1,10 @@
 Package: MCMCprecision
 Type: Package
 Title: Precision of Discrete Parameters in Transdimensional MCMC
-Version: 0.4.0
-Date: 2019-12-04
+Version: 0.4.1
+Date: 2024-07-03
 Authors@R: c(person("Daniel W.","Heck", 
-                    email = "dheck@uni-marburg.de",
+                    email = "daniel.heck@uni-marburg.de",
                     role = c("aut","cre"), 
                     comment = c(ORCID = "0000-0002-6302-9252")))
 Author: Daniel W. Heck [aut, cre] (<https://orcid.org/0000-0002-6302-9252>)
@@ -23,9 +23,8 @@ Description: Estimates the precision of transdimensional Markov chain Monte Carl
     sample size of the MCMC output.
 License: GPL-3
 Encoding: UTF-8
-LazyData: true
 Depends:
-    R (>= 3.0.0)
+    R (>= 4.0.0)
 Imports:
     Rcpp,
     parallel,
@@ -34,13 +33,13 @@ Imports:
     Matrix,
     combinat
 Suggests:
-	testthat, 
+	  testthat, 
     R.rsp
 LinkingTo: 
     Rcpp,
     RcppArmadillo,
     RcppProgress,
     RcppEigen
-RoxygenNote: 7.0.2
+RoxygenNote: 7.3.2
 URL: https://github.com/danheck/MCMCprecision
 VignetteBuilder: R.rsp
