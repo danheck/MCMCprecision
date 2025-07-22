@@ -29,7 +29,7 @@
 #' tab <- transitions(z)
 #' stationary_mle(N = tab)
 #' @references
-#' Trendelkamp-Schroer, B., Wu, H., Paul, F., & Noé, F. (2015). Estimation and uncertainty of reversible Markov models. The Journal of Chemical Physics, 143(17), 174101. \url{https://doi.org/10.1063/1.4934536}
+#' Trendelkamp-Schroer, B., Wu, H., Paul, F., & Noé, F. (2015). Estimation and uncertainty of reversible Markov models. The Journal of Chemical Physics, 143(17), 174101. \doi{10.1063/1.4934536}
 #' @export
 stationary_mle <- function (z, N, labels, method = "rev",
                             abstol = 1e-5, maxit = 1e5){
