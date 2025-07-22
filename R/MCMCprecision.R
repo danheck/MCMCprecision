@@ -28,6 +28,6 @@
 #' Heck, D. W., Overstall, A. M., Gronau, Q. F., & Wagenmakers, E.-J. (2019).
 #' Quantifying uncertainty in transdimensional Markov chain Monte Carlo
 #' using discrete Markov models. Statistics & Computing, 29, 631–643.
-#' \url{https://dx.doi.org/10.1007/s11222-018-9828-0}
+#' \doi{10.1007/s11222-018-9828-0}
 #'
 "_PACKAGE"
