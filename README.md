@@ -13,16 +13,16 @@
 The R package `MCMCprecision` estimates the precision of the posterior model 
 probabilities in transdimensional Markov chain Monte Carlo methods (e.g., 
 reversible jump MCMC or product-space MCMC). This is useful for applications of 
-transdimensional MCMC such as model selection, mixtures with varying numbers of 
+transdimensional MCMC, such as model selection, mixtures with varying numbers of 
 components, change-point detection, capture-recapture models, phylogenetic trees, 
 variable selection, and for discrete parameters in MCMC output in general.
 
-To install `MCMCprecision` from GitHub, paste the following code to R 
+To install `MCMCprecision` from GitHub, paste the following code into R 
 (dependencies need to be installed manually):
 
 ```r
 ### Dependencies:
-# install.packages(c("combinat", "devtools","RcppProgress","RcppArmadillo", "RcppEigen"))
+# install.packages(c("combinat", "devtools", "RcppProgress", "RcppArmadillo", "RcppEigen"))
 
 library(devtools)
 install_github("danheck/MCMCprecision")
@@ -39,5 +39,5 @@ sudo tar fvxz gfortran-4.8.2-darwin13.tar.bz2 -C /
 
 ## Reference
 
-* Heck, D. W., Overstall, A. M., Gronau, Q. F., & Wagenmakers, E.-J. (2017). Quantifying uncertainty in transdimensional Markov chain Monte Carlo using discrete Markov models. *Statistics & Computing*. [doi:10.1007/s11222-018-9828-0](https://dx.doi.org/10.1007/s11222-018-9828-0)
+* Heck, D. W., Overstall, A. M., Gronau, Q. F., & Wagenmakers, E.-J. (2019). Quantifying uncertainty in transdimensional Markov chain Monte Carlo using discrete Markov models. *Statistics & Computing, 29*, 631–643. [doi:10.1007/s11222-018-9828-0](https://dx.doi.org/10.1007/s11222-018-9828-0)
 [arxiv:1703.10364](https://arxiv.org/abs/1703.10364)
