@@ -6,19 +6,23 @@
 \alias{MCMCprecision-package}
 \title{MCMCprecision: Precision of discrete parameters in transdimensional MCMC}
 \description{
+{
+\if{html}{\figure{MCMCprecision.png}{options: width=150 alt ="MCMCprecision logo" style='float: right'}}
+\if{latex}{\figure{MCMCprecision.png}{options: width=0.5in}}
 MCMCprecision estimates the precision of the posterior model probabilities in
 transdimensional Markov chain Monte Carlo methods (e.g., reversible jump MCMC
 or product-space MCMC). This is useful for applications of transdimensional
 MCMC such as model selection, mixtures with varying numbers of components,
 change-point detection, capture-recapture models, phylogenetic trees,
 variable selection, and for discrete parameters in MCMC output in general.
-}
-\details{
+
 The main function to assess the estimation uncertainty of discrete MCMC output is
 is \code{\link{stationary}}.
 
-The method is explained in detail in Heck et al. (2019, Statistics & Computing),
-available in the package by calling: \code{vignette("MCMCprecision")}
+The method is explained in detail in Heck et al. (2019, Statistics & Computing).
+The PDF of the paper is available within the R package by calling:
+\code{vignette("MCMCprecision")}
+}
 }
 \references{
 Heck, D. W., Overstall, A. M., Gronau, Q. F., & Wagenmakers, E.-J. (2019).

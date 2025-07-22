@@ -9,6 +9,7 @@
 
 # MCMCprecision: Precision for discrete parameters in transdimensional MCMC
 
+<img src="man/figures/MCMCprecision.png" width="200" align="right">
 The R package `MCMCprecision` estimates the precision of the posterior model 
 probabilities in transdimensional Markov chain Monte Carlo methods (e.g., 
 reversible jump MCMC or product-space MCMC). This is useful for applications of 
